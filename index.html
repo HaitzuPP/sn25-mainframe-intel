@@ -765,12 +765,12 @@ function render(d,live){
   const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
   dot.className='dot'+(live?'':' snap'); st.textContent=(live?'LIVE · ':'SNAPSHOT · ')+t;
 
-  document.getElementById('verdict').innerHTML=`Mid-tier subnet — <b>#${lb.sn25_rank} of ${lb.total}</b> by price/FDV, <b>${usdC(s.market_cap_usd)}</b> cap. Emissions run <b>${usdC(e.total.usd_day)}/day</b>; <b>${(c.pct_of_circulating||0).toFixed(1)}%</b> of supply is conviction-locked and the top-25 wallets hold <b>${conc.toFixed(0)}%</b>.`;
+  document.getElementById('verdict').innerHTML=`Mid-tier subnet — <b>#${lb.sn25_rank} of ${lb.total}</b> by price/FDV, <b>${usdC(s.market_cap_usd)}</b> cap. It emits <b>~${num(e.total.tao_day/s.price_tao,0)} α/day</b> of its own token (worth ~${usdC(e.total.usd_day)}); ${c.available?`<b>${(c.pct_of_circulating||0).toFixed(1)}%</b> of supply is conviction-locked`:`conviction data is refreshing`}, and the top-25 wallets hold <b>${conc.toFixed(0)}%</b>.`;
 
   document.getElementById('kpis').innerHTML=[
     ['Alpha price', usdP(s.price_usd), pct(s.change_24h_pct)+' · 24h'],
     ['Market cap', usdC(s.market_cap_usd), '#'+lb.sn25_rank+' of '+lb.total+' subnets'],
-    ['Emissions', usdC(e.total.usd_day)+'<span style="font-size:.9rem;color:var(--text-muted)">/day</span>', num(e.total.tao_day,0)+' τ/day to the subnet'],
+    ['Emissions', num(e.total.tao_day/s.price_tao,0)+'<span style="font-size:.9rem;color:var(--text-muted)"> α/day</span>', 'SN25 token (~'+usdC(e.total.usd_day)+'/day) · no TAO to holders'],
   ].map(k=>`<div class="kpi"><div class="k">${k[0]}</div><div class="v">${k[1]}</div><div class="s">${k[2]}</div></div>`).join('');
 
   document.getElementById('rankso').textContent='by alpha price / FDV · gold = tracked comps';
@@ -784,15 +784,16 @@ function render(d,live){
   const top3=d.holders.slice(0,3).map(h=>{const cls=h.hl?('pill '+(HL[h.hl]||'')):'pill';return `<span class="${cls}">#${h.rank} ${h.label||shortA(h.coldkey)} · ${usdC(h.usd)}</span>`}).join(' ');
 
   document.getElementById('rows').innerHTML=`
-  <div class="row"><div class="top"><div><div class="lbl">Emissions</div><div class="line">≈ <b>${usdC(e.total.usd_day)}/day</b> → owner 18% (${usdC(e.owner.usd_day)}) · validators 41% (${usdC(e.validator.usd_day)}) · miner 41% <span class="down">burned</span></div></div><span class="tog" onclick="toggle('drwE')">annualised ▾</span></div>
-    <div class="so">Owner ${usdC(e.owner.usd_day*365)}/yr · validators ${usdC(e.validator.usd_day*365)}/yr. Miner incentive is 100% recycled.</div>
+  <div class="row"><div class="top"><div><div class="lbl">Emissions (SN25 token)</div><div class="line">≈ <b>${num(e.total.tao_day/s.price_tao,0)} α/day</b> of the subnet token (~${usdC(e.total.usd_day)}) → owner 18% · validators 41% · miner 41% <span class="down">burned</span></div></div><span class="tog" onclick="toggle('drwE')">detail ▾</span></div>
+    <div class="so">Owner receives ~${num(e.owner.tao_day/s.price_tao,0)} α/day (~${usdC(e.owner.usd_day)}); paid in alpha, not TAO. TAO only enters the pool when alpha is bought.</div>
     <div class="drawer" id="drwE"><table class="mtable"><thead><tr><th>Key</th><th>α/day</th><th>USD/day</th><th>USD/yr</th></tr></thead><tbody>
     ${[['Owner',e.owner],['Validators',e.validator],['Miner (burned)',e.miner]].map(x=>`<tr><td>${x[0]}</td><td class="mono">${num(x[1].tao_day/s.price_tao,0)}</td><td class="mono">${usdC(x[1].usd_day)}</td><td class="mono">${usdC(x[1].usd_day*365)}</td></tr>`).join('')}
     </tbody></table></div></div>
 
-  <div class="row"><div class="top"><div><div class="lbl">Bittensor Conviction</div><div class="line"><b>${(c.pct_of_circulating||0).toFixed(1)}%</b> of circulating α conviction-locked · ${c.lock_count||0} position${c.lock_count===1?'':'s'}</div></div><span class="tog" onclick="toggle('drwC')">positions ▾</span></div>
+  ${c.available ? `<div class="row"><div class="top"><div><div class="lbl">Bittensor Conviction${c.stale?' <span style="color:var(--amber)">· last known</span>':''}</div><div class="line"><b>${(c.pct_of_circulating||0).toFixed(1)}%</b> of circulating α conviction-locked · ${c.lock_count||0} position${c.lock_count===1?'':'s'}</div></div><span class="tog" onclick="toggle('drwC')">positions ▾</span></div>
     <div class="so">${num(c.locked_alpha||0,0)} α locked (${usdC(c.locked_usd||0)}) — dominated by ${(top[0]&&(hmap[top[0].coldkey]||{}).label)||'one wallet'}.</div>
-    <div class="drawer" id="drwC">${convPos||'—'}</div></div>
+    <div class="drawer" id="drwC">${convPos||'—'}</div></div>`
+  : `<div class="row"><div class="lbl">Bittensor Conviction</div><div class="line" style="color:var(--text-muted)">Awaiting data — the last refresh couldn't reach taostats. Press ↻ to retry.</div></div>`}
 
   <div class="row"><div class="top"><div><div class="lbl">Holder concentration</div><div class="line">Top-25 wallets hold <b>${conc.toFixed(0)}%</b> of supply · ${num(s.holder_count)} holders total</div></div><a class="tog" href="wallets.html">See all 25 →</a></div>
     <div class="so">Largest: ${top3}</div></div>`;

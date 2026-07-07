@@ -206,6 +206,19 @@ def main():
     id_map = ts_identity_map() if TAOSTATS_API_KEY else {}
     val_map = ts_validators() if TAOSTATS_API_KEY else {}
     conviction = ts_conviction(circ_alpha, price_usd) if TAOSTATS_API_KEY else {"available": False}
+    # if taostats couldn't be reached this run, keep the last-good conviction (don't blank it out)
+    if not conviction.get("available") and os.path.exists("data.json"):
+        try:
+            prev = json.load(open("data.json")).get("conviction", {})
+            if prev.get("available"):
+                prev["stale"] = True
+                # revalue the locked alpha at the current price so USD stays sensible
+                la = prev.get("locked_alpha", 0)
+                prev["locked_usd"] = la * price_usd
+                prev["pct_of_circulating"] = (la / circ_alpha * 100) if circ_alpha else prev.get("pct_of_circulating", 0)
+                conviction = prev
+        except Exception:
+            pass
     # SN25 validator owner coldkeys are validators too
     for v in vals:
         if v.get("owner_coldkey"):
