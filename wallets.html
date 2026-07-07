@@ -698,7 +698,7 @@ let DATA=null, FILTER='all';
 const usdC=n=>n>=1e6?'$'+(n/1e6).toFixed(2)+'M':n>=1e3?'$'+(n/1e3).toFixed(1)+'k':'$'+Number(n).toFixed(0);
 const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:d});
 const shortAddr=a=>a.slice(0,8)+'…'+a.slice(-6);
-const fmtDate=s=>{if(!s)return'';const d=new Date(s+'T00:00:00Z');return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});};
+const fmtDate=s=>{if(!s)return'';const d=new Date(s+'T00:00:00Z');return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});};
 
 function setFilter(f,el){FILTER=f;document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');draw()}
 
@@ -717,7 +717,7 @@ function draw(){
     const cls=HM[h.hl]||'';
     const tagCls=HM[h.hl]||'own';
     const tag=h.label?`<span class="tag ${tagCls}" title="${h.is_val?'Validator':''}">${h.is_val?'◆ ':''}${h.label}</span>`:'';
-    const newTag=h.is_new?`<span class="tag gray" title="Entered top 25 on ${h.entered}">NEW · ${fmtDate(h.entered)}</span>`:'';
+    const newTag=h.is_new?`<span class="tag gray" title="First seen in the top 25 on ${h.entered}">New · ${fmtDate(h.entered)}</span>`:'';
     const url='https://taostats.io/account/'+h.coldkey;
     const medal=h.rank<=3?'medal':'';
     return `<tr class="${cls}">
@@ -758,6 +758,8 @@ function loadData(){
 }
 function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
 loadData();
+// auto-refresh every 90s (pauses when tab hidden)
+setInterval(function(){if(!document.hidden)loadData();}, 90000);
 </script>
 </body>
 </html>
