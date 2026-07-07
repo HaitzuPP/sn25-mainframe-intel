@@ -232,23 +232,30 @@ def main():
                         "share_pct": (alpha / circ_alpha * 100) if circ_alpha else 0.0,
                         "label": label, "hl": hl, "is_val": bool(is_val)})
 
-    # track when each coldkey entered the top 25 (persisted across runs)
-    SEEN_FILE = "holders_seen.json"
+    # when each coldkey entered the top 25.
+    # holders_entry.json holds dates reconstructed from on-chain SN25 trades (backfilled once);
+    # holders_seen.json records first-detected date for any wallet not in that file (going forward).
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    seen = {}
-    if os.path.exists(SEEN_FILE):
+    def _load(p):
         try:
-            seen = json.load(open(SEEN_FILE))
+            return json.load(open(p))
         except Exception:
-            seen = {}
-    baseline = len(seen) == 0            # first run = establish baseline, nothing is "new"
-    new_cks = [h["coldkey"] for h in holders if h["coldkey"] not in seen]
-    for ck in new_cks:
-        seen[ck] = today
-    json.dump(seen, open(SEEN_FILE, "w"), indent=2)
+            return {}
+    entry = _load("holders_entry.json")          # {coldkey: {"entered": "YYYY-MM-DD", "method": ...}}
+    seen = _load("holders_seen.json")
     for h in holders:
-        h["entered"] = seen.get(h["coldkey"], today)
-        h["is_new"] = (h["coldkey"] in new_cks) and not baseline
+        ck = h["coldkey"]
+        if ck in entry and entry[ck].get("entered"):
+            h["entered"] = entry[ck]["entered"]; h["entered_method"] = entry[ck].get("method", "trades")
+        else:
+            seen.setdefault(ck, today)
+            h["entered"] = seen[ck]; h["entered_method"] = "first-seen"
+        try:
+            days = (datetime.now(timezone.utc) - datetime.fromisoformat(h["entered"] + "T00:00:00+00:00")).days
+            h["is_new"] = days <= 45
+        except Exception:
+            h["is_new"] = False
+    json.dump(seen, open("holders_seen.json", "w"), indent=2)
 
     # label conviction positions from manual labels / holder tags
     hlbl = {h["coldkey"]: (h["label"], h["hl"]) for h in holders if h.get("label")}

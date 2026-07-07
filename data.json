@@ -1,540 +1,612 @@
 {
-  "generated_at": "2026-07-07T12:51:24Z",
-  "source": "tao.com Data API + taostats",
-  "taostats_enabled": true,
-  "tao": {
-    "price_usd": 215.54101796782848,
-    "change_24h_pct": 2.9014364661887075,
-    "market_cap_usd": 2391913025.1352186
-  },
-  "network": {
-    "total_subnets": 128,
-    "staked_tao": 7370945.028813361,
-    "staked_root_pct": 72.90113544980765,
-    "staked_alpha_pct": 27.098864550192353
-  },
-  "subnet": {
+ "generated_at": "2026-07-07T07:20:29Z",
+ "source": "tao.com Data API + taostats",
+ "taostats_enabled": true,
+ "tao": {
+  "price_usd": 213.46119538988307,
+  "change_24h_pct": 0.576136776764909,
+  "market_cap_usd": 2368656392.3393936
+ },
+ "network": {
+  "total_subnets": 128,
+  "staked_tao": 7356434.814687962,
+  "staked_root_pct": 72.83608188747229,
+  "staked_alpha_pct": 27.163918112527714
+ },
+ "subnet": {
+  "netuid": 25,
+  "name": "Mainframe",
+  "price_usd": 0.864583512155374,
+  "price_tao": 0.004052631,
+  "market_cap_usd": 4703973.964552712,
+  "fdv_usd": 18156258.235378057,
+  "volume_24h_usd": 275875.3471250909,
+  "change_24h_pct": 9.004867066808853,
+  "change_7d_pct": 6.282988614387712,
+  "change_30d_pct": -0.46581219462236867,
+  "tao_in_pool": 10291.942613044,
+  "alpha_in_pool": 2539570.048212527,
+  "circulating_alpha": 5440739.845738999,
+  "total_traders": 4046,
+  "holder_count": 1622,
+  "rank": 90
+ },
+ "leaderboard": {
+  "sn25_rank": 90,
+  "total": 129,
+  "rows": [
+   {
+    "rank": 34,
+    "netuid": 93,
+    "name": "Bitcast",
+    "mcap_usd": 10733667.056312902,
+    "change_7d": -3.873752126556617,
+    "is_sn25": false,
+    "is_target": true
+   },
+   {
+    "rank": 52,
+    "netuid": 11,
+    "name": "TrajectoryRL",
+    "mcap_usd": 9185087.878661202,
+    "change_7d": -2.7605943740367525,
+    "is_sn25": false,
+    "is_target": true
+   },
+   {
+    "rank": 86,
+    "netuid": 30,
+    "name": "Endure Network",
+    "mcap_usd": 5242930.95508802,
+    "change_7d": 0.9174275239809584,
+    "is_sn25": false,
+    "is_target": true
+   },
+   {
+    "rank": 87,
+    "netuid": 113,
+    "name": "TensorUSD",
+    "mcap_usd": 1758557.8097366625,
+    "change_7d": -7.711257651906131,
+    "is_sn25": false,
+    "is_target": false
+   },
+   {
+    "rank": 88,
+    "netuid": 119,
+    "name": "Satori",
+    "mcap_usd": 2256854.8854746856,
+    "change_7d": -2.6122499865637456,
+    "is_sn25": false,
+    "is_target": false
+   },
+   {
+    "rank": 89,
+    "netuid": 78,
+    "name": "Vocence",
+    "mcap_usd": 691934.5429487242,
+    "change_7d": -12.470580663199273,
+    "is_sn25": false,
+    "is_target": false
+   },
+   {
+    "rank": 90,
     "netuid": 25,
     "name": "Mainframe",
-    "price_usd": 0.8934275315995507,
-    "price_tao": 0.00414769,
-    "market_cap_usd": 4856601.19877567,
-    "fdv_usd": 18721741.84029612,
-    "volume_24h_usd": 342034.71363318426,
-    "change_24h_pct": 11.567822597131512,
-    "change_7d_pct": 11.165786895768925,
-    "change_30d_pct": 1.8739777761566978,
-    "tao_in_pool": 10411.9472617,
-    "alpha_in_pool": 2510299.806944931,
-    "circulating_alpha": 5435920.684110371,
-    "total_traders": 4053,
-    "holder_count": 1638,
-    "rank": 90
-  },
-  "leaderboard": {
-    "sn25_rank": 90,
-    "total": 129,
-    "rows": [
-      {
-        "rank": 32,
-        "netuid": 93,
-        "name": "Bitcast",
-        "mcap_usd": 11044422.668656416,
-        "change_7d": -2.9799710760721334,
-        "is_sn25": false,
-        "is_target": true
-      },
-      {
-        "rank": 54,
-        "netuid": 11,
-        "name": "TrajectoryRL",
-        "mcap_usd": 9322360.889602743,
-        "change_7d": -4.756489494381,
-        "is_sn25": false,
-        "is_target": true
-      },
-      {
-        "rank": 86,
-        "netuid": 30,
-        "name": "Endure Network",
-        "mcap_usd": 5327600.720312074,
-        "change_7d": 1.360012010669519,
-        "is_sn25": false,
-        "is_target": true
-      },
-      {
-        "rank": 87,
-        "netuid": 119,
-        "name": "Satori",
-        "mcap_usd": 2292354.2590201837,
-        "change_7d": -2.653512202322601,
-        "is_sn25": false,
-        "is_target": false
-      },
-      {
-        "rank": 88,
-        "netuid": 113,
-        "name": "TensorUSD",
-        "mcap_usd": 1778836.4586868912,
-        "change_7d": -6.896952543745531,
-        "is_sn25": false,
-        "is_target": false
-      },
-      {
-        "rank": 89,
-        "netuid": 78,
-        "name": "Vocence",
-        "mcap_usd": 685932.0134047647,
-        "change_7d": -12.606865072764037,
-        "is_sn25": false,
-        "is_target": false
-      },
-      {
-        "rank": 90,
-        "netuid": 25,
-        "name": "Mainframe",
-        "mcap_usd": 4892210.846539743,
-        "change_7d": 11.165786895768925,
-        "is_sn25": true,
-        "is_target": false
-      },
-      {
-        "rank": 91,
-        "netuid": 109,
-        "name": "GuardArena",
-        "mcap_usd": 1409180.2388721514,
-        "change_7d": 3.015208576707211,
-        "is_sn25": false,
-        "is_target": false
-      },
-      {
-        "rank": 92,
-        "netuid": 104,
-        "name": "for sale (burn to uid1)",
-        "mcap_usd": 3673218.7579140626,
-        "change_7d": -4.648744528004581,
-        "is_sn25": false,
-        "is_target": false
-      },
-      {
-        "rank": 93,
-        "netuid": 106,
-        "name": "Nodexo",
-        "mcap_usd": 3672875.180234763,
-        "change_7d": -0.4038985914698082,
-        "is_sn25": false,
-        "is_target": false
-      }
-    ]
-  },
-  "emissions": {
-    "total": {
-      "tao_day": 29.8840536,
-      "usd_day": 6441.23933394915,
-      "usd_year": 2351052.3568914398
-    },
-    "owner": {
-      "tao_day": 5.378992847571527,
-      "usd_day": 1159.3935940072354,
-      "usd_year": 423178.6618126409
-    },
-    "miner": {
-      "tao_day": 12.252530376214239,
-      "usd_day": 2640.9228699709574,
-      "usd_year": 963936.8475393995
-    },
-    "validator": {
-      "tao_day": 12.252530376214239,
-      "usd_day": 2640.9228699709574,
-      "usd_year": 963936.8475393995
-    },
-    "incentive_burn_pct": 100.0
-  },
-  "conviction": {
-    "available": false
-  },
-  "validators": [
-    {
-      "name": "Macrocosmos",
-      "hotkey": "5FYwKoHYfiuy9m2yM4wbwM5pQyaEP38MBTTZS8RwNKRuQ8mi",
-      "stake_alpha": 644294.929467666,
-      "dominance_pct": 47.48,
-      "apr_pct": 36.73,
-      "nominators": 34
-    },
-    {
-      "name": "tao.bot",
-      "hotkey": "5E2LP6EnZ54m3wS8s1yPvD5c3xo71kQroBw7aUVK32TKeZ5u",
-      "stake_alpha": 330893.476520682,
-      "dominance_pct": 24.38,
-      "apr_pct": 45.58,
-      "nominators": 335
-    },
-    {
-      "name": "TAO.com",
-      "hotkey": "5GEiaoZZqiR3hi17Vk8oBeajXZgms1Bk3an95fCWgYHYg1MM",
-      "stake_alpha": 109431.078266037,
-      "dominance_pct": 8.06,
-      "apr_pct": 37.95,
-      "nominators": 13
-    },
-    {
-      "name": "Unnamed",
-      "hotkey": "5GP7c3fFazW9GXK8Up3qgu2DJBk8inu4aK9TZy3RuoSWVCMi",
-      "stake_alpha": 101343.259957554,
-      "dominance_pct": 7.46,
-      "apr_pct": 44.58,
-      "nominators": 55
-    },
-    {
-      "name": "Unnamed",
-      "hotkey": "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D",
-      "stake_alpha": 63692.079532154,
-      "dominance_pct": 4.69,
-      "apr_pct": 0.0,
-      "nominators": 9
-    },
-    {
-      "name": "Rizzo (Insured)",
-      "hotkey": "5E9vRSxypx39uaz747ZbwA2ey6gFGqFbxU6FuoaVd37KQs25",
-      "stake_alpha": 28604.878020223,
-      "dominance_pct": 2.1,
-      "apr_pct": 36.55,
-      "nominators": 32
-    },
-    {
-      "name": "Unnamed",
-      "hotkey": "5CsvRJXuR955WojnGMdok1hbhffZyB4N5ocrv82f3p5A2zVp",
-      "stake_alpha": 20195.115719806,
-      "dominance_pct": 1.48,
-      "apr_pct": 40.82,
-      "nominators": 54
-    },
-    {
-      "name": "Kraken",
-      "hotkey": "5DFZEJwgkg98h1kyngSEMYY1NnxXE9tkpLGCtQqf9XCtGBxf",
-      "stake_alpha": 19385.398684863,
-      "dominance_pct": 1.42,
-      "apr_pct": 36.23,
-      "nominators": 61
-    },
-    {
-      "name": "Yuma, a DCG Company",
-      "hotkey": "5GpDE9kN55cxaa5Ao6k7VQ6LCQVGBfr4Nexdpp51NwoB3fEz",
-      "stake_alpha": 13462.474391125,
-      "dominance_pct": 0.99,
-      "apr_pct": 44.37,
-      "nominators": 9
-    },
-    {
-      "name": "Unnamed",
-      "hotkey": "5HbScNssaEfioJHXjcXdpyqo1AKnYjymidGF8opcF9rTFZdT",
-      "stake_alpha": 8169.825158576,
-      "dominance_pct": 0.6,
-      "apr_pct": 42.68,
-      "nominators": 4
-    }
-  ],
-  "holders": [
-    {
-      "rank": 1,
-      "coldkey": "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D",
-      "alpha": 611708.776707943,
-      "usd": 546517.4624319582,
-      "share_pct": 11.253085029294418,
-      "label": "SN25 owner",
-      "hl": "green",
-      "is_val": true,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 2,
-      "coldkey": "5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL",
-      "alpha": 336285.149826595,
-      "usd": 300446.4113231598,
-      "share_pct": 6.186351298494535,
-      "label": "Keith",
-      "hl": "purple",
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 3,
-      "coldkey": "5GuRLEMgsMQsKSXQ9CjvQGpDxiMuSCcdkyQNz4nuoHURiuaC",
-      "alpha": 174524.258144706,
-      "usd": 155924.77715846745,
-      "share_pct": 3.210574036792963,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 4,
-      "coldkey": "5F9LSSxrEjTmnWtUNAj4tCHBQTwVgc4EjDFoSe9BeD3fN9Yi",
-      "alpha": 100007.103445077,
-      "usd": 89349.09957335606,
-      "share_pct": 1.8397454498813002,
-      "label": "Keith",
-      "hl": "purple",
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 5,
-      "coldkey": "5FRXwb2qsEhqDQQKcm5m2MF26xTWwW65MHTEtKFFydypuqjG",
-      "alpha": 62429.891650477,
-      "usd": 55776.58399531307,
-      "share_pct": 1.1484695101045999,
-      "label": "Macrocosmos",
-      "hl": "gold",
-      "is_val": true,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 6,
-      "coldkey": "5Gj5coRFcbf79kcAAhPqYpVosiF7nNZsZscRAHcgwemnoH4B",
-      "alpha": 34012.321054881,
-      "usd": 30387.54404403376,
-      "share_pct": 0.6256956830569976,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 7,
-      "coldkey": "5EFZf5pnTqLegv6gxCrb6TKBQBGz9xLJNK8x9eR273cSons6",
-      "alpha": 31987.607247319,
-      "usd": 28578.608984748113,
-      "share_pct": 0.5884487487247804,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 8,
-      "coldkey": "5HeNFrj2pMf3odu3FSGe7HhUNpCvEK7hrHjaUbRyWR1DPMGM",
-      "alpha": 27952.166203256,
-      "usd": 24973.234853835394,
-      "share_pct": 0.5142121790879401,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 9,
-      "coldkey": "5EqqEM18K9X2Zcp54WCdEwHxZPe39Pb7cXDRXxdVu1F6wFWh",
-      "alpha": 27270.038438657,
-      "usd": 24363.803128874188,
-      "share_pct": 0.5016636559538017,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 10,
-      "coldkey": "5EZYHCoE5rkiZDJMUrhPi23R8e9mWxJgWTusDDk5CPASuP9D",
-      "alpha": 25909.792539461,
-      "usd": 23148.521992787093,
-      "share_pct": 0.47664037143141885,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 11,
-      "coldkey": "5GjoDduJujeACNfPDRVBBpdEqwRRY8vAygUWjQNwwDAn5EE9",
-      "alpha": 24835.259818411,
-      "usd": 22188.504876196443,
-      "share_pct": 0.4568731087450639,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 12,
-      "coldkey": "5EyB11xwWvViSLXGCDwZoGFCKaKfXXNG3stN3epXBqGfDR8g",
-      "alpha": 23767.466157417,
-      "usd": 21234.508621396926,
-      "share_pct": 0.4372298188031182,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 13,
-      "coldkey": "5DywHvwVgfCHRKtf4BBAocyBQNPsxCGTHsQhcjBGRMkrnQG7",
-      "alpha": 21300.9053516,
-      "usd": 19030.815289115646,
-      "share_pct": 0.3918546018131618,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 14,
-      "coldkey": "5G9CSvpfupX1smaKmvCxb7zhMS5gHfJvAoxCEsq3t18yER5E",
-      "alpha": 19038.256561878,
-      "usd": 17009.302566037608,
-      "share_pct": 0.35023058039695715,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 15,
-      "coldkey": "5FNM2TdFcEryhMVYARyzHDSwDYYQcWSvzf4yEbmR8xYRMokm",
-      "alpha": 18125.549926238,
-      "usd": 16193.865329483235,
-      "share_pct": 0.3334402942857578,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 16,
-      "coldkey": "5H8SwoePPRYaknriaC8CvgCYtXKD5MK9fRB9dvq14EV8otDt",
-      "alpha": 17435.815339209,
-      "usd": 15577.637459935078,
-      "share_pct": 0.32075183492237613,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 17,
-      "coldkey": "5CX9HWTx2J4VRvwR5VLnWNRVxPDHHyFZ6piyogoPUAWmCPHp",
-      "alpha": 15618.96288131,
-      "usd": 13954.4114531938,
-      "share_pct": 0.2873287486876965,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 18,
-      "coldkey": "5GEZEgicrmPbWr1tMLM5CaikXEkKEub9sz4mAxhqRgZX6M2j",
-      "alpha": 14716.770994905,
-      "usd": 13148.368383093839,
-      "share_pct": 0.27073189345685805,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 19,
-      "coldkey": "5Chb9pm2PSo6EhmGVgouKvTTfEHN3p58b7pdp5fDBhg3MrGP",
-      "alpha": 13370.626230893,
-      "usd": 11945.685589406938,
-      "share_pct": 0.24596801550060146,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 20,
-      "coldkey": "5FnumZwTeKy35oxdQw3jNKjKCkgQ8jZ4F8E7bwY6bP3ncTZP",
-      "alpha": 12914.004449388,
-      "usd": 11537.727118282335,
-      "share_pct": 0.23756793374739008,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 21,
-      "coldkey": "5GF7kTAkoGXWWkLp2FxwaPMyLsUPgZd3DHVLbHB3ZqKLWQ3s",
-      "alpha": 12472.256530447,
-      "usd": 11143.05736547364,
-      "share_pct": 0.22944147376734908,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 22,
-      "coldkey": "5DPt4Ehx1ZJrehu3szzMei78twFtnwMDuHSu1WWZW79mdL5b",
-      "alpha": 12261.685697427,
-      "usd": 10954.92758590172,
-      "share_pct": 0.22556778161368107,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 23,
-      "coldkey": "5E6mEesnJyPSCT8ySapTBZzYBBCJjUsywFnZ6kXXvNM25jwp",
-      "alpha": 12139.345682864,
-      "usd": 10845.625648674844,
-      "share_pct": 0.22331719663144226,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 24,
-      "coldkey": "5Cq9rCPcvSrAKxqJWgDy5QnFY623XY8m1gEyZiUuegtNs1gJ",
-      "alpha": 12038.746297695,
-      "usd": 10755.747388302872,
-      "share_pct": 0.22146655547946484,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    },
-    {
-      "rank": 25,
-      "coldkey": "5D7Wfw3RA6qVx2McDwFYBpJaWgNskovzfmSHQTiL3p9FdebR",
-      "alpha": 9868.728727925,
-      "usd": 8816.993947415605,
-      "share_pct": 0.1815465916707004,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2026-07-07",
-      "is_new": false
-    }
+    "mcap_usd": 4703973.099968986,
+    "change_7d": 6.282988614387712,
+    "is_sn25": true,
+    "is_target": false
+   },
+   {
+    "rank": 91,
+    "netuid": 104,
+    "name": "for sale (burn to uid1)",
+    "mcap_usd": 3616415.5032946705,
+    "change_7d": -3.6569440401221245,
+    "is_sn25": false,
+    "is_target": false
+   },
+   {
+    "rank": 92,
+    "netuid": 109,
+    "name": "GuardArena",
+    "mcap_usd": 1363623.338302676,
+    "change_7d": 1.0596126035870421,
+    "is_sn25": false,
+    "is_target": false
+   },
+   {
+    "rank": 93,
+    "netuid": 106,
+    "name": "Nodexo",
+    "mcap_usd": 3588906.677756246,
+    "change_7d": -0.8239013119192999,
+    "is_sn25": false,
+    "is_target": false
+   }
   ]
+ },
+ "emissions": {
+  "total": {
+   "tao_day": 29.153699999999997,
+   "usd_day": 6223.183652038034,
+   "usd_year": 2271462.0329938824
+  },
+  "owner": {
+   "tao_day": 5.247532542915999,
+   "usd_day": 1120.144569458162,
+   "usd_year": 408852.7678522292
+  },
+  "miner": {
+   "tao_day": 11.953083728542,
+   "usd_day": 2551.5195412899357,
+   "usd_year": 931304.6325708266
+  },
+  "validator": {
+   "tao_day": 11.953083728542,
+   "usd_day": 2551.5195412899357,
+   "usd_year": 931304.6325708266
+  },
+  "incentive_burn_pct": 100.0
+ },
+ "conviction": {
+  "available": true,
+  "locked_alpha": 323519.372769362,
+  "locked_usd": 279709.5155592387,
+  "pct_of_circulating": 5.946238598831946,
+  "lock_count": 2,
+  "perpetual_count": 2,
+  "top": [
+   {
+    "coldkey": "5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL",
+    "alpha": 318072.450156406,
+    "perpetual": true,
+    "owner_hotkey": true,
+    "label": "Keith"
+   },
+   {
+    "coldkey": "5GH2aUTMRUh1RprCgH4x3tRyCaKeUi5BfmYCfs1NARA8R54n",
+    "alpha": 5446.922612956,
+    "perpetual": true,
+    "owner_hotkey": true,
+    "label": "Const",
+    "hl": "orange"
+   }
+  ]
+ },
+ "validators": [
+  {
+   "name": "Macrocosmos",
+   "hotkey": "5FYwKoHYfiuy9m2yM4wbwM5pQyaEP38MBTTZS8RwNKRuQ8mi",
+   "stake_alpha": 643959.232774271,
+   "dominance_pct": 47.36,
+   "apr_pct": 37.17,
+   "nominators": 33
+  },
+  {
+   "name": "tao.bot",
+   "hotkey": "5E2LP6EnZ54m3wS8s1yPvD5c3xo71kQroBw7aUVK32TKeZ5u",
+   "stake_alpha": 336482.614383265,
+   "dominance_pct": 24.74,
+   "apr_pct": 44.96,
+   "nominators": 329
+  },
+  {
+   "name": "TAO.com",
+   "hotkey": "5GEiaoZZqiR3hi17Vk8oBeajXZgms1Bk3an95fCWgYHYg1MM",
+   "stake_alpha": 109405.238007455,
+   "dominance_pct": 8.04,
+   "apr_pct": 32.17,
+   "nominators": 13
+  },
+  {
+   "name": "Unnamed",
+   "hotkey": "5GP7c3fFazW9GXK8Up3qgu2DJBk8inu4aK9TZy3RuoSWVCMi",
+   "stake_alpha": 100935.067338047,
+   "dominance_pct": 7.42,
+   "apr_pct": 45.21,
+   "nominators": 53
+  },
+  {
+   "name": "Unnamed",
+   "hotkey": "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D",
+   "stake_alpha": 63432.886124473,
+   "dominance_pct": 4.66,
+   "apr_pct": 0.0,
+   "nominators": 9
+  },
+  {
+   "name": "Rizzo (Insured)",
+   "hotkey": "5E9vRSxypx39uaz747ZbwA2ey6gFGqFbxU6FuoaVd37KQs25",
+   "stake_alpha": 28598.03794082,
+   "dominance_pct": 2.1,
+   "apr_pct": 36.96,
+   "nominators": 32
+  },
+  {
+   "name": "Unnamed",
+   "hotkey": "5CsvRJXuR955WojnGMdok1hbhffZyB4N5ocrv82f3p5A2zVp",
+   "stake_alpha": 20248.719393588,
+   "dominance_pct": 1.48,
+   "apr_pct": 41.12,
+   "nominators": 55
+  },
+  {
+   "name": "Kraken",
+   "hotkey": "5DFZEJwgkg98h1kyngSEMYY1NnxXE9tkpLGCtQqf9XCtGBxf",
+   "stake_alpha": 19056.470919656,
+   "dominance_pct": 1.4,
+   "apr_pct": 37.25,
+   "nominators": 60
+  },
+  {
+   "name": "Yuma, a DCG Company",
+   "hotkey": "5GpDE9kN55cxaa5Ao6k7VQ6LCQVGBfr4Nexdpp51NwoB3fEz",
+   "stake_alpha": 13458.935405077,
+   "dominance_pct": 0.98,
+   "apr_pct": 44.83,
+   "nominators": 9
+  },
+  {
+   "name": "Unnamed",
+   "hotkey": "5HbScNssaEfioJHXjcXdpyqo1AKnYjymidGF8opcF9rTFZdT",
+   "stake_alpha": 8167.749438643,
+   "dominance_pct": 0.6,
+   "apr_pct": 44.0,
+   "nominators": 4
+  }
+ ],
+ "holders": [
+  {
+   "rank": 1,
+   "coldkey": "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D",
+   "alpha": 611341.608948884,
+   "usd": 528555.8753917433,
+   "share_pct": 11.236369065278241,
+   "label": "SN25 owner",
+   "hl": "green",
+   "is_val": false,
+   "entered": "2025-03-15",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-02-13"
+  },
+  {
+   "rank": 2,
+   "coldkey": "5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL",
+   "alpha": 336213.707289428,
+   "usd": 290684.8278830725,
+   "share_pct": 6.1795586045662345,
+   "label": "Keith",
+   "hl": "purple",
+   "is_val": false,
+   "entered": "2025-10-23",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-10-23"
+  },
+  {
+   "rank": 3,
+   "coldkey": "5GuRLEMgsMQsKSXQ9CjvQGpDxiMuSCcdkyQNz4nuoHURiuaC",
+   "alpha": 174482.470702876,
+   "usd": 150854.66732983966,
+   "share_pct": 3.2069622082651996,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-02-19",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-02-13"
+  },
+  {
+   "rank": 4,
+   "coldkey": "5F9LSSxrEjTmnWtUNAj4tCHBQTwVgc4EjDFoSe9BeD3fN9Yi",
+   "alpha": 99985.613615488,
+   "usd": 86445.9129846888,
+   "share_pct": 1.8377209065379831,
+   "label": "Keith",
+   "hl": "purple",
+   "is_val": false,
+   "entered": "2026-01-01",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2026-01-01"
+  },
+  {
+   "rank": 5,
+   "coldkey": "5FRXwb2qsEhqDQQKcm5m2MF26xTWwW65MHTEtKFFydypuqjG",
+   "alpha": 62389.750245201,
+   "usd": 53941.149389492486,
+   "share_pct": 1.1467144545435768,
+   "label": "Macrocosmos",
+   "hl": "gold",
+   "is_val": true,
+   "entered": "2025-07-03",
+   "is_new": false,
+   "entered_method": "first-activity",
+   "first_trade": "2025-07-03"
+  },
+  {
+   "rank": 6,
+   "coldkey": "5Gj5coRFcbf79kcAAhPqYpVosiF7nNZsZscRAHcgwemnoH4B",
+   "alpha": 34004.910547671,
+   "usd": 29400.08499183472,
+   "share_pct": 0.6250052660448834,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-07-25",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-07-13"
+  },
+  {
+   "rank": 7,
+   "coldkey": "5EFZf5pnTqLegv6gxCrb6TKBQBGz9xLJNK8x9eR273cSons6",
+   "alpha": 31980.811598386,
+   "usd": 27650.082413311888,
+   "share_pct": 0.5878026243697771,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-04-07",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-02-18"
+  },
+  {
+   "rank": 8,
+   "coldkey": "5HeNFrj2pMf3odu3FSGe7HhUNpCvEK7hrHjaUbRyWR1DPMGM",
+   "alpha": 27946.227868857,
+   "usd": 24161.847842350777,
+   "share_pct": 0.5136475674488191,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2026-06-12",
+   "is_new": true,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2026-06-03"
+  },
+  {
+   "rank": 9,
+   "coldkey": "5EqqEM18K9X2Zcp54WCdEwHxZPe39Pb7cXDRXxdVu1F6wFWh",
+   "alpha": 27263.509001678,
+   "usd": 23571.58036635042,
+   "share_pct": 0.5010992948510459,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-04-22",
+   "is_new": false,
+   "entered_method": "first-activity",
+   "first_trade": "2025-04-22"
+  },
+  {
+   "rank": 10,
+   "coldkey": "5EZYHCoE5rkiZDJMUrhPi23R8e9mWxJgWTusDDk5CPASuP9D",
+   "alpha": 25903.58879472,
+   "usd": 22395.815777567608,
+   "share_pct": 0.4761041609994789,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-04-29",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-02-19"
+  },
+  {
+   "rank": 11,
+   "coldkey": "5GjoDduJujeACNfPDRVBBpdEqwRRY8vAygUWjQNwwDAn5EE9",
+   "alpha": 24829.279947349,
+   "usd": 21466.986061167998,
+   "share_pct": 0.45635852202700783,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-07-06",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-05-13"
+  },
+  {
+   "rank": 12,
+   "coldkey": "5EyB11xwWvViSLXGCDwZoGFCKaKfXXNG3stN3epXBqGfDR8g",
+   "alpha": 23762.792261169,
+   "usd": 20544.918391780036,
+   "share_pct": 0.43675663484956384,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-05-19",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-05-16"
+  },
+  {
+   "rank": 13,
+   "coldkey": "5DywHvwVgfCHRKtf4BBAocyBQNPsxCGTHsQhcjBGRMkrnQG7",
+   "alpha": 21296.221986412,
+   "usd": 18412.362400652582,
+   "share_pct": 0.3914214351397535,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-06-24",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-06-24"
+  },
+  {
+   "rank": 14,
+   "coldkey": "5G9CSvpfupX1smaKmvCxb7zhMS5gHfJvAoxCEsq3t18yER5E",
+   "alpha": 19034.523445703,
+   "usd": 16456.93513288971,
+   "share_pct": 0.34985174783922424,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-03-08",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-02-14"
+  },
+  {
+   "rank": 15,
+   "coldkey": "5FNM2TdFcEryhMVYARyzHDSwDYYQcWSvzf4yEbmR8xYRMokm",
+   "alpha": 18121.729560035,
+   "usd": 15667.748589344921,
+   "share_pct": 0.3330747301624304,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-04-17",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-04-17"
+  },
+  {
+   "rank": 16,
+   "coldkey": "5H8SwoePPRYaknriaC8CvgCYtXKD5MK9fRB9dvq14EV8otDt",
+   "alpha": 17431.617117473,
+   "usd": 15071.088749972543,
+   "share_pct": 0.32039056473403793,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-11-03",
+   "is_new": false,
+   "entered_method": "first-activity",
+   "first_trade": "2025-11-03"
+  },
+  {
+   "rank": 17,
+   "coldkey": "5CX9HWTx2J4VRvwR5VLnWNRVxPDHHyFZ6piyogoPUAWmCPHp",
+   "alpha": 15615.20212403,
+   "usd": 13500.646295409913,
+   "share_pct": 0.287005123692126,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-04-24",
+   "is_new": false,
+   "entered_method": "first-activity",
+   "first_trade": "2025-04-24"
+  },
+  {
+   "rank": 18,
+   "coldkey": "5GEZEgicrmPbWr1tMLM5CaikXEkKEub9sz4mAxhqRgZX6M2j",
+   "alpha": 14713.564546942,
+   "usd": 12721.105312319909,
+   "share_pct": 0.27043315732997525,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2026-06-15",
+   "is_new": true,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-05-20"
+  },
+  {
+   "rank": 19,
+   "coldkey": "5FnumZwTeKy35oxdQw3jNKjKCkgQ8jZ4F8E7bwY6bP3ncTZP",
+   "alpha": 12911.260916873,
+   "usd": 11162.863309864471,
+   "share_pct": 0.23730708107620066,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-03-31",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-03-28"
+  },
+  {
+   "rank": 20,
+   "coldkey": "5GF7kTAkoGXWWkLp2FxwaPMyLsUPgZd3DHVLbHB3ZqKLWQ3s",
+   "alpha": 12469.272897916,
+   "usd": 10780.727756104034,
+   "share_pct": 0.2291834061443226,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-11-30",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-11-30"
+  },
+  {
+   "rank": 21,
+   "coldkey": "5HCT4AarReToT1BKyLtJXJfSLs4zRS7dENnZ7iysqrqxXyV7",
+   "alpha": 12138.13274429,
+   "usd": 10494.429439066396,
+   "share_pct": 0.22309709871160574,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": null,
+   "is_new": false,
+   "entered_method": "unknown",
+   "first_trade": null
+  },
+  {
+   "rank": 22,
+   "coldkey": "5E6mEesnJyPSCT8ySapTBZzYBBCJjUsywFnZ6kXXvNM25jwp",
+   "alpha": 12136.766723741,
+   "usd": 10493.248400222466,
+   "share_pct": 0.2230719914543626,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2026-07-06",
+   "is_new": true,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2026-07-05"
+  },
+  {
+   "rank": 23,
+   "coldkey": "5Cq9rCPcvSrAKxqJWgDy5QnFY623XY8m1gEyZiUuegtNs1gJ",
+   "alpha": 12035.86378488,
+   "usd": 10406.009382955224,
+   "share_pct": 0.22121741024441885,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-05-26",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-05-18"
+  },
+  {
+   "rank": 24,
+   "coldkey": "5D7Wfw3RA6qVx2McDwFYBpJaWgNskovzfmSHQTiL3p9FdebR",
+   "alpha": 9866.578557542,
+   "usd": 8530.481142236566,
+   "share_pct": 0.18134626608308,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2025-09-11",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2025-07-13"
+  },
+  {
+   "rank": 25,
+   "coldkey": "5Chb9pm2PSo6EhmGVgouKvTTfEHN3p58b7pdp5fDBhg3MrGP",
+   "alpha": 9712.842113662,
+   "usd": 8397.563147640518,
+   "share_pct": 0.17852061280358342,
+   "label": null,
+   "hl": null,
+   "is_val": false,
+   "entered": "2026-01-21",
+   "is_new": false,
+   "entered_method": "crossed-threshold",
+   "first_trade": "2026-01-21"
+  }
+ ]
 }
