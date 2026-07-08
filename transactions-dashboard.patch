@@ -1,0 +1,378 @@
+From 640bdfdb668bce0bf11486c1a5f53c76d9ecb35e Mon Sep 17 00:00:00 2001
+From: HaitzuPP <haitzupp@users.noreply.github.com>
+Date: Wed, 8 Jul 2026 05:21:48 +0000
+Subject: [PATCH] Add transactions dashboard: daily net inflow chart + >$5k
+ trades-into-pool table
+
+New transactions.html reads trades_data.json live (snapshot fallback embedded).
+Adds daily net-$ inflow bar chart (buys minus sells) and a filterable table
+of tracked whale trades above $5k. TRANSACTIONS nav link added site-wide.
+
+Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01C2atsubBFnEjCrtggS3e2u
+---
+ analytics.html    |   1 +
+ index.html        |   1 +
+ transactions.html | 313 ++++++++++++++++++++++++++++++++++++++++++++++
+ wallets.html      |   1 +
+ 4 files changed, 316 insertions(+)
+ create mode 100644 transactions.html
+
+diff --git a/analytics.html b/analytics.html
+index c90ec3a..b2a5048 100644
+--- a/analytics.html
++++ b/analytics.html
+@@ -75,6 +75,7 @@ SN25 · Wallet Analytics
+ <a href="index.html" class="nav-link">OVERVIEW</a>
+ <a href="wallets.html" class="nav-link">WALLETS</a>
+ <a href="analytics.html" class="nav-link active">ANALYTICS</a>
++<a href="transactions.html" class="nav-link">TRANSACTIONS</a>
+ <button class="rbtn" onclick="manualRefresh()">↻</button>
+ <button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+ </div>
+diff --git a/index.html b/index.html
+index ba3018e..7ac6051 100644
+--- a/index.html
++++ b/index.html
+@@ -93,6 +93,7 @@ SN25 · Mainframe
+ <a href="index.html" class="nav-link active">OVERVIEW</a>
+ <a href="wallets.html" class="nav-link">WALLETS</a>
+ <a href="analytics.html" class="nav-link">ANALYTICS</a>
++<a href="transactions.html" class="nav-link">TRANSACTIONS</a>
+ <button class="rbtn" onclick="manualRefresh()">↻</button>
+ <button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+ </div>
+diff --git a/transactions.html b/transactions.html
+new file mode 100644
+index 0000000..db0d05b
+--- /dev/null
++++ b/transactions.html
+@@ -0,0 +1,313 @@
++<!DOCTYPE html>
++<html lang="en" data-theme="dark">
++<head>
++<meta charset="UTF-8">
++<meta name="viewport" content="width=device-width, initial-scale=1.0">
++<title>SN25 · Transactions — Token Intelligence</title>
++<meta name="description" content="Large SN25 (Mainframe) trades into the pool and daily net inflow, from tracked whale wallets. Live tao.com data.">
++<link rel="icon" type="image/svg+xml" href="favicon.svg">
++<link href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
++<style>
++:root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#00d672;--accent-dim:color-mix(in srgb,#00d672 15%,var(--bg));--red:#dc2626;--red-dim:color-mix(in srgb,#dc2626 15%,var(--bg));--amber:#e0a800;--gold:#d4a017;--gold-dim:color-mix(in srgb,#d4a017 15%,var(--bg));--purple:#a855f7;--purple-dim:color-mix(in srgb,#a855f7 16%,var(--bg))}
++[data-theme="light"]{--bg:#fafafa;--bg-card:#fff;--border:#e0e0e0;--border-hover:#ccc;--text:#111;--text-sec:#555;--text-muted:#999;--accent:#059669;--accent-dim:color-mix(in srgb,#059669 12%,#fff);--red:#dc2626;--red-dim:color-mix(in srgb,#dc2626 10%,#fff);--amber:#b7791f;--gold:#a37514;--gold-dim:color-mix(in srgb,#a37514 10%,#fff);--purple:#7c3aed;--purple-dim:color-mix(in srgb,#7c3aed 12%,#fff)}
++*{margin:0;padding:0;box-sizing:border-box}
++body{background:var(--bg);color:var(--text);font-family:Arial, Helvetica, sans-serif;line-height:1.6;transition:background .3s,color .3s;min-height:100vh;display:flex;flex-direction:column}
++h1,h2,h3{font-family:Arial, Helvetica, sans-serif;font-weight:400}
++header{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
++nav{max-width:1200px;margin:0 auto;padding:.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
++.nav-brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-family:Arial, Helvetica, sans-serif;font-size:1.05rem}
++.nav-brand svg{width:26px;height:26px;color:var(--accent)}
++.nav-links{display:flex;align-items:center;gap:1.5rem}
++.nav-link{color:var(--text-sec);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.5px;transition:color .2s}
++.nav-link:hover,.nav-link.active{color:var(--text)}
++.theme-toggle{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.35rem .5rem;border-radius:6px;font-size:.85rem;transition:all .2s}
++.theme-toggle:hover{border-color:var(--border-hover);color:var(--text)}
++.hamburger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:.5rem}
++.hamburger svg{width:24px;height:24px}
++main{flex:1;width:100%;max-width:1200px;margin:0 auto;padding:2.5rem 1.5rem 3rem}
++.hero-label{font-size:.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:3px;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
++.hero-title{font-size:clamp(28px,5vw,46px);letter-spacing:-0.02em;line-height:1.1;margin-bottom:.75rem}
++.hero-title .accent{color:var(--accent)}
++.hero-sub{font-size:14.5px;color:var(--text-sec);max-width:720px;line-height:1.7}
++.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--accent-dim)}
++.dot.snap{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 20%,transparent)}
++.status{font-family:Arial, Helvetica, sans-serif;font-size:.62rem;color:var(--text-muted);letter-spacing:.5px}
++.rbtn{background:none;border:1px solid var(--border);color:var(--text-sec);cursor:pointer;padding:.2rem .6rem;border-radius:6px;font-size:.62rem;font-family:Arial,Helvetica,sans-serif;letter-spacing:.5px;text-transform:uppercase;transition:all .2s}
++.rbtn:hover{border-color:var(--accent);color:var(--accent)}
++.rbtn:active{transform:scale(.96)}
++.stats{display:flex;gap:2.5rem;margin:2rem 0 1.5rem;flex-wrap:wrap}
++.stat{min-width:110px}
++.stat-num{font-family:Arial, Helvetica, sans-serif;font-size:1.5rem;line-height:1.1}
++.stat-num.up{color:var(--accent)}
++.stat-num.down{color:var(--red)}
++.stat-label{font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:.3rem}
++.panel{border:1px solid var(--border);border-radius:12px;background:var(--bg-card);padding:1.25rem 1.35rem;margin-bottom:2rem}
++.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.35rem}
++.panel-title{font-size:1.05rem}
++.panel-sub{font-size:.72rem;color:var(--text-muted)}
++.legend{display:flex;gap:1rem;font-size:.68rem;color:var(--text-sec);flex-wrap:wrap}
++.legend span{display:flex;align-items:center;gap:.35rem}
++.swatch{width:10px;height:10px;border-radius:2px;display:inline-block}
++.chart-scroll{overflow-x:auto;padding-top:.5rem}
++#chart{display:block;min-width:640px;width:100%;height:auto}
++.bar{cursor:pointer;transition:opacity .15s}
++.bar:hover{opacity:.75}
++.controls{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;margin-bottom:1.1rem}
++.filter-pill{padding:.4rem .85rem;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--text-sec);font-size:.8rem;cursor:pointer;transition:all .15s;font-family:inherit}
++.filter-pill:hover{border-color:var(--border-hover);color:var(--text)}
++.filter-pill.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
++.search-box{margin-left:auto;padding:.4rem .75rem .4rem 2rem;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:.85rem;font-family:inherit;width:230px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23888' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.156a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:8px center}
++.search-box:focus{outline:none;border-color:var(--accent)}
++.table-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden}
++table{width:100%;border-collapse:collapse}
++thead th{text-align:left;padding:.7rem .9rem;font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;font-weight:500;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--bg-card);cursor:pointer;user-select:none}
++thead th.num{text-align:right}
++thead th .arrow{color:var(--accent);font-size:.6rem}
++tbody tr{border-bottom:1px solid var(--border);transition:background .15s}
++tbody tr:last-child{border-bottom:none}
++tbody tr:hover{background:var(--bg-card)}
++td{padding:.7rem .9rem;font-size:.85rem;vertical-align:middle}
++td.num{text-align:right;font-family:Arial, Helvetica, sans-serif;white-space:nowrap}
++.addr{font-family:Arial, Helvetica, sans-serif;font-size:.78rem;color:var(--text-sec);text-decoration:none}
++.addr:hover{color:var(--accent)}
++.badge{font-size:.6rem;padding:.14rem .5rem;border-radius:4px;font-family:Arial, Helvetica, sans-serif;letter-spacing:.3px;white-space:nowrap;font-weight:600}
++.badge.buy{background:var(--accent);color:#001b0e}
++.badge.sell{background:var(--red);color:#fff}
++.wtag{font-size:.6rem;padding:.12rem .45rem;border-radius:4px;background:color-mix(in srgb,var(--purple) 18%,var(--bg));color:var(--purple);border:1px solid color-mix(in srgb,var(--purple) 40%,transparent);white-space:nowrap}
++.wtag.w3{background:color-mix(in srgb,var(--text-muted) 20%,var(--bg));color:var(--text-sec);border-color:var(--border)}
++.pos{color:var(--accent)}
++.neg{color:var(--red)}
++.tip{position:fixed;pointer-events:none;background:var(--bg-card);border:1px solid var(--border-hover);border-radius:8px;padding:.5rem .65rem;font-size:.72rem;color:var(--text);box-shadow:0 6px 24px rgba(0,0,0,.4);opacity:0;transition:opacity .12s;z-index:200;white-space:nowrap}
++.tip b{font-weight:600}
++footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;margin-top:2rem}
++.footer-text{font-size:.75rem;color:var(--text-muted)}
++.footer-text a{color:var(--text-sec);text-decoration:none}
++.footer-text a:hover{color:var(--text)}
++@media(max-width:768px){.hamburger{display:block}.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:1rem 1.5rem;flex-direction:column;align-items:flex-start;gap:1rem}.nav-links.open{display:flex}.search-box{width:100%;margin-left:0;order:10}.hide-sm{display:none}td,thead th{padding:.6rem .5rem;font-size:.8rem}.stats{gap:1.5rem}}
++</style>
++</head>
++<body>
++<header><nav>
++<a href="index.html" class="nav-brand">
++<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="2" fill="currentColor"/><path d="M8 3.5L12 6l4-2.5M4.5 8L8 12l-3.5 4M8 20.5L12 18l4 2.5M19.5 16L16 12l3.5-4"/></svg>
++SN25 · Mainframe
++</a>
++<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></button>
++<div class="nav-links">
++<a href="index.html" class="nav-link">OVERVIEW</a>
++<a href="wallets.html" class="nav-link">WALLETS</a>
++<a href="analytics.html" class="nav-link">ANALYTICS</a>
++<a href="transactions.html" class="nav-link active">TRANSACTIONS</a>
++<button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
++</div>
++</nav></header>
++
++<main>
++<div class="hero-label"><span>Transactions · SN25 Alpha</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading&hellip;</span></span><button class="rbtn" onclick="manualRefresh()" title="Reload latest data">&#8635; Refresh</button></div>
++<h1 class="hero-title">Large trades <span class="accent">into the pool</span></h1>
++<p class="hero-sub">Every tracked SN25 (Mainframe) trade above <span style="color:var(--accent)">$5k</span> from the monitored whale wallets, and the daily <b>net inflow</b> &mdash; USD bought into the pool minus USD sold out. <span style="color:var(--accent)">Buys</span> add TAO to the pool; <span style="color:var(--red)">sells</span> pull it out. Click an address to open it on taostats.</p>
++
++<div class="stats" id="stats"></div>
++
++<div class="panel">
++  <div class="panel-head">
++    <div>
++      <div class="panel-title">Net $ inflow per day</div>
++      <div class="panel-sub">Bought per day &minus; sold per day, across tracked wallets</div>
++    </div>
++    <div class="legend">
++      <span><i class="swatch" style="background:var(--accent)"></i> Net inflow</span>
++      <span><i class="swatch" style="background:var(--red)"></i> Net outflow</span>
++    </div>
++  </div>
++  <div class="chart-scroll"><svg id="chart" viewBox="0 0 900 300" preserveAspectRatio="xMinYMid meet"></svg></div>
++</div>
++
++<div class="controls">
++<button class="filter-pill active" data-f="poolin" onclick="setFilter('poolin',this)">Into pool &gt;$5k</button>
++<button class="filter-pill" data-f="all" onclick="setFilter('all',this)">All &gt;$5k</button>
++<button class="filter-pill" data-f="buy" onclick="setFilter('buy',this)">Buys</button>
++<button class="filter-pill" data-f="sell" onclick="setFilter('sell',this)">Sells</button>
++<input class="search-box" id="search" placeholder="Search date, wallet or address&hellip;" oninput="draw()">
++</div>
++
++<div class="table-wrap">
++<table>
++<thead><tr>
++<th data-s="ts">Date <span class="arrow" id="ar-ts">&darr;</span></th>
++<th>Wallet</th>
++<th>Side</th>
++<th class="num" data-s="alpha">Alpha <span class="arrow" id="ar-alpha"></span></th>
++<th class="num" data-s="price_usd">Price <span class="arrow" id="ar-price_usd"></span></th>
++<th class="num" data-s="usd">Trade value <span class="arrow" id="ar-usd"></span></th>
++<th class="hide-sm"></th>
++</tr></thead>
++<tbody id="rows"></tbody>
++</table>
++</div>
++</main>
++
++<footer><p class="footer-text">SN25 Transactions &mdash; a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Trades via tao.com (SN25 stake add/remove). Not financial advice.</p></footer>
++
++<div class="tip" id="tip"></div>
++
++<script>(function(){var t=localStorage.getItem('sn25-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
++<script>
++function toggleTheme(){var t=document.documentElement.getAttribute('data-theme')==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('sn25-theme',t);if(DATA)build()}
++const FALLBACK = {"generated_at":"2026-07-07T11:55:02Z","price_tao":0.004052631,"price_usd":0.864583512155374,"tao_usd":213.46119538988307,"source":"tao.com SN25 stake add/remove transactions + TAO price history. PnL on a cash-flow basis (rewards/emissions count as gains).","wallets":[{"name":"Keith","key":"keith","coldkeys":["5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL","5F9LSSxrEjTmnWtUNAj4tCHBQTwVgc4EjDFoSe9BeD3fN9Yi"],"note":"2 wallets \u00b7 ranks #2 + #4","current_alpha":436199.320904916,"current_value_usd":377130.7408677613,"n_buys":22,"n_sells":15,"n_trades":37,"alpha_bought":705225.9895683359,"alpha_sold":143650.348948803,"invested_usd":1013257.9838332267,"proceeds_usd":293005.74219959095,"invested_tao":3802.211048838,"proceeds_tao":1153.4559908800002,"avg_buy_price_usd":1.4367848020652714,"realized_pnl_usd":86611.10401857787,"unrealized_pnl_usd":-429732.60478445236,"total_pnl_usd":-343121.5007658745,"roi_pct":-33.86319241895549,"first_trade":"2025-10-23","monthly":[{"month":"2025-10","buy_usd":303759.99138174305,"sell_usd":0,"avg_buy_usd":1.300421352669555},{"month":"2026-01","buy_usd":294575.6758079657,"sell_usd":13901.356611758201,"avg_buy_usd":1.9943045740860865},{"month":"2026-02","buy_usd":54052.39033297353,"sell_usd":13073.1299448465,"avg_buy_usd":1.2757666672221095},{"month":"2026-03","buy_usd":0,"sell_usd":38323.475514167374,"avg_buy_usd":0},{"month":"2026-04","buy_usd":186349.71553153367,"sell_usd":227707.78012881888,"avg_buy_usd":1.7317883918089856},{"month":"2026-05","buy_usd":97279.32734233754,"sell_usd":0,"avg_buy_usd":1.2148425739198754},{"month":"2026-07","buy_usd":77240.88343667325,"sell_usd":0,"avg_buy_usd":0.8227433153001626}],"recent":[{"ts":"2026-07-06","side":"buy","alpha":93882.1,"price_usd":0.8227,"usd":77241},{"ts":"2026-05-27","side":"buy","alpha":80075.7,"price_usd":1.2148,"usd":97279},{"ts":"2026-04-24","side":"buy","alpha":2951.5,"price_usd":1.2196,"usd":3600},{"ts":"2026-04-24","side":"buy","alpha":5129.2,"price_usd":1.21,"usd":6206},{"ts":"2026-04-18","side":"sell","alpha":19956.3,"price_usd":1.7208,"usd":34341},{"ts":"2026-04-18","side":"sell","alpha":20000.0,"price_usd":1.7462,"usd":34924},{"ts":"2026-04-18","side":"sell","alpha":20000.0,"price_usd":1.7742,"usd":35485},{"ts":"2026-04-18","side":"sell","alpha":20000.0,"price_usd":1.803,"usd":36059},{"ts":"2026-04-18","side":"sell","alpha":20000.0,"price_usd":1.8364,"usd":36728},{"ts":"2026-04-16","side":"buy","alpha":27576.2,"price_usd":1.8154,"usd":50061},{"ts":"2026-04-16","side":"sell","alpha":5900.0,"price_usd":2.3759,"usd":14018},{"ts":"2026-04-16","side":"sell","alpha":5000.0,"price_usd":2.3993,"usd":11997},{"ts":"2026-04-16","side":"sell","alpha":5000.0,"price_usd":2.4102,"usd":12051},{"ts":"2026-04-16","side":"sell","alpha":5000.0,"price_usd":2.4211,"usd":12106},{"ts":"2026-04-16","side":"buy","alpha":71948.4,"price_usd":1.758,"usd":126483},{"ts":"2026-03-25","side":"sell","alpha":2000.0,"price_usd":4.7694,"usd":9539},{"ts":"2026-03-25","side":"sell","alpha":2000.0,"price_usd":4.7834,"usd":9567},{"ts":"2026-03-25","side":"sell","alpha":2000.0,"price_usd":4.7974,"usd":9595},{"ts":"2026-03-25","side":"sell","alpha":2000.0,"price_usd":4.8115,"usd":9623},{"ts":"2026-02-13","side":"buy","alpha":9903.1,"price_usd":1.1783,"usd":11669},{"ts":"2026-02-12","side":"buy","alpha":23268.6,"price_usd":1.3104,"usd":30492},{"ts":"2026-02-12","side":"buy","alpha":9196.8,"price_usd":1.293,"usd":11892},{"ts":"2026-02-07","side":"sell","alpha":9572.0,"price_usd":1.3658,"usd":13073},{"ts":"2026-01-16","side":"buy","alpha":9913.3,"price_usd":1.6137,"usd":15997},{"ts":"2026-01-15","side":"buy","alpha":20285.1,"price_usd":1.0224,"usd":20740},{"ts":"2026-01-09","side":"sell","alpha":5222.1,"price_usd":2.662,"usd":13901},{"ts":"2026-01-09","side":"buy","alpha":9572.1,"price_usd":2.4746,"usd":23687},{"ts":"2026-01-09","side":"buy","alpha":5218.2,"price_usd":2.702,"usd":14100},{"ts":"2026-01-09","side":"buy","alpha":6610.6,"price_usd":2.1755,"usd":14382},{"ts":"2026-01-09","side":"buy","alpha":7183.5,"price_usd":2.9442,"usd":21150},{"ts":"2026-01-06","side":"buy","alpha":7905.9,"price_usd":2.7215,"usd":21516},{"ts":"2026-01-03","side":"buy","alpha":19050.9,"price_usd":2.4264,"usd":46226},{"ts":"2026-01-01","side":"buy","alpha":8903.6,"price_usd":2.4583,"usd":21887},{"ts":"2026-01-01","side":"buy","alpha":20202.2,"price_usd":1.702,"usd":34384},{"ts":"2026-01-01","side":"buy","alpha":12900.0,"price_usd":2.0943,"usd":27016},{"ts":"2026-01-01","side":"buy","alpha":19963.0,"price_usd":1.6777,"usd":33491},{"ts":"2025-10-23","side":"buy","alpha":233585.8,"price_usd":1.3004,"usd":303760}]},{"name":"Wallet #3","key":"w3","coldkeys":["5GuRLEMgsMQsKSXQ9CjvQGpDxiMuSCcdkyQNz4nuoHURiuaC"],"note":"rank #3 \u00b7 unlabelled whale","current_alpha":174482.470702876,"current_value_usd":150854.66732983966,"n_buys":373,"n_sells":215,"n_trades":588,"alpha_bought":8331106.777317729,"alpha_sold":7459327.301699719,"invested_usd":15397416.246847825,"proceeds_usd":13171189.209194606,"invested_tao":53003.173489972,"proceeds_tao":47022.16492728599,"avg_buy_price_usd":1.8481837597819333,"realized_pnl_usd":-615018.3687048052,"unrealized_pnl_usd":-1460354.0016185741,"total_pnl_usd":-2075372.3703233793,"roi_pct":-13.478705368819602,"first_trade":"2025-02-13","monthly":[{"month":"2025-02","buy_usd":703269.0115140218,"sell_usd":0,"avg_buy_usd":10.379904080276894},{"month":"2025-03","buy_usd":908106.4995530505,"sell_usd":0,"avg_buy_usd":7.318840988593003},{"month":"2025-04","buy_usd":1908459.9822251787,"sell_usd":1884129.8139247324,"avg_buy_usd":3.9157047184709266},{"month":"2025-05","buy_usd":823915.8862776173,"sell_usd":624661.2913559504,"avg_buy_usd":4.501663737392275},{"month":"2025-06","buy_usd":29683.279470328245,"sell_usd":170350.48713231392,"avg_buy_usd":0.9703554985306438},{"month":"2025-07","buy_usd":727015.8650335709,"sell_usd":1190000.761852584,"avg_buy_usd":3.4600236722861295},{"month":"2025-08","buy_usd":420576.76203522895,"sell_usd":871075.9741019683,"avg_buy_usd":1.393694006743985},{"month":"2025-09","buy_usd":1269488.251961262,"sell_usd":0,"avg_buy_usd":1.0125358909472317},{"month":"2025-10","buy_usd":1807072.7963311593,"sell_usd":1194627.226207064,"avg_buy_usd":1.2210329394176542},{"month":"2025-11","buy_usd":887540.2977285037,"sell_usd":673588.5105564512,"avg_buy_usd":3.1091518002501513},{"month":"2025-12","buy_usd":358641.3884786714,"sell_usd":418988.7376206365,"avg_buy_usd":1.1130530422812142},{"month":"2026-01","buy_usd":1756144.8028426664,"sell_usd":2373661.062853475,"avg_buy_usd":1.6415762422817735},{"month":"2026-02","buy_usd":618301.2126623021,"sell_usd":738954.6000491709,"avg_buy_usd":1.23052997631273},{"month":"2026-03","buy_usd":1957197.5753420524,"sell_usd":1658347.1065159687,"avg_buy_usd":1.4844620648644815},{"month":"2026-04","buy_usd":175345.4675409061,"sell_usd":662104.8606586535,"avg_buy_usd":1.586307523002009},{"month":"2026-05","buy_usd":747612.4138429111,"sell_usd":363350.0002753926,"avg_buy_usd":1.873924471385836},{"month":"2026-06","buy_usd":299044.7540083903,"sell_usd":347348.7760902442,"avg_buy_usd":1.618402867360549}],"recent":[{"ts":"2026-06-30","side":"buy","alpha":11954.2,"price_usd":1.6886,"usd":20186},{"ts":"2026-06-30","side":"sell","alpha":26178.8,"price_usd":0.7707,"usd":20177},{"ts":"2026-06-11","side":"sell","alpha":19186.1,"price_usd":0.8636,"usd":16570},{"ts":"2026-06-07","side":"buy","alpha":105982.3,"price_usd":1.8493,"usd":195989},{"ts":"2026-06-07","side":"buy","alpha":66841.2,"price_usd":1.2398,"usd":82871},{"ts":"2026-06-05","side":"sell","alpha":75405.4,"price_usd":1.4243,"usd":107399},{"ts":"2026-06-01","side":"sell","alpha":88887.4,"price_usd":0.9138,"usd":81229},{"ts":"2026-06-01","side":"sell","alpha":58595.7,"price_usd":2.0816,"usd":121974},{"ts":"2026-05-31","side":"buy","alpha":12468.5,"price_usd":2.0317,"usd":25333},{"ts":"2026-05-31","side":"sell","alpha":22059.9,"price_usd":1.1488,"usd":25343},{"ts":"2026-05-28","side":"buy","alpha":15440.7,"price_usd":4.1436,"usd":63981},{"ts":"2026-05-28","side":"sell","alpha":27914.8,"price_usd":2.2931,"usd":64011},{"ts":"2026-05-28","side":"buy","alpha":68809.7,"price_usd":1.2662,"usd":87128},{"ts":"2026-05-28","side":"buy","alpha":18682.5,"price_usd":2.0882,"usd":39013},{"ts":"2026-05-28","side":"sell","alpha":53668.7,"price_usd":2.3514,"usd":126199},{"ts":"2026-05-21","side":"buy","alpha":118017.9,"price_usd":2.0697,"usd":244259},{"ts":"2026-05-21","side":"sell","alpha":20731.3,"price_usd":2.6665,"usd":55280},{"ts":"2026-05-21","side":"buy","alpha":20152.3,"price_usd":1.3884,"usd":27979},{"ts":"2026-05-09","side":"buy","alpha":56283.9,"price_usd":1.8773,"usd":105664},{"ts":"2026-05-09","side":"sell","alpha":69741.3,"price_usd":1.3266,"usd":92517},{"ts":"2026-05-08","side":"buy","alpha":89100.1,"price_usd":1.7313,"usd":154256},{"ts":"2026-04-28","side":"buy","alpha":20668.0,"price_usd":3.5335,"usd":73030},{"ts":"2026-04-10","side":"sell","alpha":13983.2,"price_usd":1.1428,"usd":15981},{"ts":"2026-04-10","side":"sell","alpha":30220.4,"price_usd":0.877,"usd":26503},{"ts":"2026-04-10","side":"sell","alpha":109121.5,"price_usd":1.1657,"usd":127203},{"ts":"2026-04-10","side":"sell","alpha":128912.5,"price_usd":1.4272,"usd":183981},{"ts":"2026-04-10","side":"sell","alpha":109775.9,"price_usd":1.2288,"usd":134892},{"ts":"2026-04-05","side":"buy","alpha":77735.0,"price_usd":1.1581,"usd":90023},{"ts":"2026-04-04","side":"sell","alpha":17909.7,"price_usd":0.8158,"usd":14611},{"ts":"2026-04-04","side":"sell","alpha":10853.6,"price_usd":1.0202,"usd":11073},{"ts":"2026-04-04","side":"sell","alpha":150000.0,"price_usd":0.9046,"usd":135686},{"ts":"2026-04-03","side":"buy","alpha":12133.9,"price_usd":1.0131,"usd":12293},{"ts":"2026-04-02","side":"sell","alpha":12224.5,"price_usd":0.996,"usd":12176},{"ts":"2026-03-30","side":"buy","alpha":104648.1,"price_usd":1.1748,"usd":122945},{"ts":"2026-03-30","side":"sell","alpha":53369.7,"price_usd":1.153,"usd":61537},{"ts":"2026-03-30","side":"sell","alpha":50941.7,"price_usd":1.2087,"usd":61574},{"ts":"2026-03-30","side":"buy","alpha":10778.9,"price_usd":1.0556,"usd":11378},{"ts":"2026-03-30","side":"buy","alpha":12185.5,"price_usd":1.0375,"usd":12642},{"ts":"2026-03-30","side":"buy","alpha":9068.6,"price_usd":1.0455,"usd":9482},{"ts":"2026-03-30","side":"buy","alpha":12315.5,"price_usd":1.0265,"usd":12642}]}]};
++
++let DATA=null, FILTER='poolin', SORT={k:'ts',dir:-1}, TX=[], DAILY=[];
++const THRESH=5000;
++const usdC=n=>{const a=Math.abs(n),s=n<0?'-':'';return a>=1e6?s+'$'+(a/1e6).toFixed(2)+'M':a>=1e3?s+'$'+(a/1e3).toFixed(1)+'k':s+'$'+a.toFixed(0)};
++const usdFull=n=>{const s=n<0?'-':'';return s+'$'+Math.abs(Math.round(n)).toLocaleString('en-US')};
++const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d,minimumFractionDigits:d});
++const usd4=n=>'$'+Number(n).toFixed(4);
++const shortA=a=>a.slice(0,6)+'…'+a.slice(-4);
++const fmtDate=s=>{const d=new Date(s+'T00:00:00Z');return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'2-digit'});};
++
++// Flatten every wallet's recent trades into one transaction list
++function buildTx(d){
++  const out=[];
++  (d.wallets||[]).forEach(w=>{
++    const ck=(w.coldkeys&&w.coldkeys[0])||'';
++    (w.recent||[]).forEach(t=>{
++      out.push({ts:t.ts,side:t.side,alpha:t.alpha,price_usd:t.price_usd,usd:t.usd,wallet:w.name,wkey:w.key,coldkey:ck});
++    });
++  });
++  return out;
++}
++// Daily net inflow = sum(buy usd) - sum(sell usd)
++function buildDaily(tx){
++  const m={};
++  tx.forEach(t=>{
++    if(!m[t.ts])m[t.ts]={ts:t.ts,buy:0,sell:0};
++    if(t.side==='buy')m[t.ts].buy+=t.usd; else m[t.ts].sell+=t.usd;
++  });
++  return Object.values(m).map(d=>({...d,net:d.buy-d.sell})).sort((a,b)=>a.ts<b.ts?-1:1);
++}
++
++function chart(){
++  const svg=document.getElementById('chart');
++  const W=900,H=300,padL=52,padR=14,padT=18,padB=54;
++  const iw=W-padL-padR, ih=H-padT-padB;
++  const n=DAILY.length||1;
++  const maxUp=Math.max(0,...DAILY.map(d=>d.net));
++  const maxDn=Math.min(0,...DAILY.map(d=>d.net));
++  const span=Math.max(1,maxUp-maxDn);
++  const y=v=>padT+(maxUp-v)/span*ih;
++  const zeroY=y(0);
++  const gap=iw/n, bw=Math.min(30,gap*0.62);
++  // gridlines
++  const ticks=[maxUp, maxUp/2, 0, maxDn/2, maxDn].filter((v,i,a)=>a.indexOf(v)===i);
++  let grid='';
++  ticks.forEach(v=>{const yy=y(v);grid+=`<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W-padR}" y2="${yy.toFixed(1)}" stroke="var(--border)" stroke-width="1"/><text x="${padL-8}" y="${(yy+3).toFixed(1)}" text-anchor="end" font-size="9" fill="var(--text-muted)">${usdC(v)}</text>`;});
++  // zero baseline emphasised
++  grid+=`<line x1="${padL}" y1="${zeroY.toFixed(1)}" x2="${W-padR}" y2="${zeroY.toFixed(1)}" stroke="var(--border-hover)" stroke-width="1.5"/>`;
++  let bars='';
++  DAILY.forEach((d,i)=>{
++    const cx=padL+i*gap+gap/2;
++    const x=cx-bw/2;
++    const up=d.net>=0;
++    const yy=up?y(d.net):zeroY;
++    const h=Math.max(1,Math.abs(zeroY-y(d.net)));
++    const col=up?'var(--accent)':'var(--red)';
++    bars+=`<rect class="bar" x="${x.toFixed(1)}" y="${yy.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${col}" data-i="${i}"/>`;
++  });
++  // x labels: show a subset to avoid crowding
++  let xl='';
++  const step=Math.ceil(n/12);
++  DAILY.forEach((d,i)=>{
++    if(i%step!==0 && i!==n-1)return;
++    const cx=padL+i*gap+gap/2;
++    xl+=`<text x="${cx.toFixed(1)}" y="${H-padB+16}" text-anchor="middle" font-size="8.5" fill="var(--text-muted)" transform="rotate(-40 ${cx.toFixed(1)} ${H-padB+16})">${fmtDate(d.ts)}</text>`;
++  });
++  svg.innerHTML=grid+bars+xl;
++  // tooltip wiring
++  const tip=document.getElementById('tip');
++  svg.querySelectorAll('.bar').forEach(b=>{
++    b.addEventListener('mousemove',e=>{
++      const d=DAILY[+b.dataset.i];
++      tip.innerHTML=`<b>${fmtDate(d.ts)}</b><br>Net <b class="${d.net>=0?'pos':'neg'}">${usdFull(d.net)}</b><br>Buys ${usdC(d.buy)} · Sells ${usdC(d.sell)}`;
++      tip.style.opacity='1';
++      tip.style.left=Math.min(e.clientX+14,window.innerWidth-190)+'px';
++      tip.style.top=(e.clientY+14)+'px';
++    });
++    b.addEventListener('mouseleave',()=>{tip.style.opacity='0';});
++  });
++}
++
++function setFilter(f,el){FILTER=f;document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));el.classList.add('active');draw()}
++function setSort(k){if(SORT.k===k)SORT.dir*=-1;else{SORT.k=k;SORT.dir=(k==='ts')?-1:-1;}draw()}
++
++function draw(){
++  const q=(document.getElementById('search').value||'').toLowerCase();
++  let rows=TX.filter(t=>{
++    if(t.usd<THRESH)return false;
++    if(FILTER==='poolin'&&t.side!=='buy')return false;
++    if(FILTER==='buy'&&t.side!=='buy')return false;
++    if(FILTER==='sell'&&t.side!=='sell')return false;
++    if(q&&!((t.ts||'').toLowerCase().includes(q)||(t.wallet||'').toLowerCase().includes(q)||(t.coldkey||'').toLowerCase().includes(q)))return false;
++    return true;
++  });
++  const k=SORT.k;
++  rows.sort((a,b)=>{let x=a[k],y=b[k];if(k==='ts'){x=a.ts;y=b.ts;}if(x<y)return -1*SORT.dir;if(x>y)return 1*SORT.dir;return 0;});
++  ['ts','alpha','price_usd','usd'].forEach(c=>{const el=document.getElementById('ar-'+c);if(el)el.innerHTML=(SORT.k===c)?(SORT.dir===1?'↑':'↓'):'';});
++  document.getElementById('rows').innerHTML=rows.map(t=>{
++    const url='https://taostats.io/account/'+t.coldkey;
++    const wc=t.wkey==='keith'?'':'w3';
++    return `<tr>
++      <td>${fmtDate(t.ts)}</td>
++      <td><span class="wtag ${wc}">${t.wallet}</span></td>
++      <td><span class="badge ${t.side}">${t.side.toUpperCase()}</span></td>
++      <td class="num">${num(t.alpha,0)} α</td>
++      <td class="num">${usd4(t.price_usd)}</td>
++      <td class="num" style="font-weight:600">${usdFull(t.usd)}</td>
++      <td class="num hide-sm"><a class="addr" href="${url}" target="_blank" rel="noopener" title="${t.coldkey}">${shortA(t.coldkey)} ↗</a></td>
++    </tr>`;
++  }).join('') || `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.5rem">No transactions match.</td></tr>`;
++}
++
++function build(){
++  TX=buildTx(DATA);
++  DAILY=buildDaily(TX);
++  const big=TX.filter(t=>t.usd>=THRESH);
++  const poolIn=big.filter(t=>t.side==='buy');
++  const totBuy=TX.filter(t=>t.side==='buy').reduce((a,t)=>a+t.usd,0);
++  const totSell=TX.filter(t=>t.side==='sell').reduce((a,t)=>a+t.usd,0);
++  const net=totBuy-totSell;
++  const topDay=DAILY.reduce((m,d)=>Math.abs(d.net)>Math.abs(m.net)?d:m,{net:0,ts:''});
++  document.getElementById('stats').innerHTML=[
++    ['Net inflow (period)',usdC(net),net>=0?'up':'down'],
++    ['Bought into pool',usdC(totBuy),''],
++    ['Sold out of pool',usdC(totSell),''],
++    ['Trades &gt;$5k',num(big.length)+' · '+num(poolIn.length)+' in',''],
++    ['Biggest net day',usdC(topDay.net),topDay.net>=0?'up':'down'],
++  ].map(s=>`<div class="stat"><div class="stat-num ${s[2]}">${s[1]}</div><div class="stat-label">${s[0]}</div></div>`).join('');
++  chart();
++  draw();
++}
++
++function render(d,live){
++  DATA=d;
++  const dot=document.getElementById('dot'), st=document.getElementById('statusTxt');
++  const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
++  if(live){dot.className='dot';st.textContent='LIVE · '+t;}
++  else{dot.className='dot snap';st.textContent='SNAPSHOT · '+t;}
++  build();
++}
++
++function loadData(){
++  try{
++    if(typeof fetch!=='function'){render(FALLBACK,false);return;}
++    fetch('./trades_data.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()})
++      .then(d=>render(d,true)).catch(()=>render(FALLBACK,false));
++  }catch(e){render(FALLBACK,false);}
++}
++function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
++document.querySelectorAll('thead th[data-s]').forEach(th=>th.addEventListener('click',()=>setSort(th.dataset.s)));
++window.addEventListener('resize',()=>{if(DATA)chart();});
++loadData();
++setInterval(function(){if(!document.hidden)loadData();},90000);
++</script>
++</body>
++</html>
+diff --git a/wallets.html b/wallets.html
+index 85b741f..2d450f7 100644
+--- a/wallets.html
++++ b/wallets.html
+@@ -95,6 +95,7 @@ SN25 · Mainframe
+ <a href="index.html" class="nav-link">OVERVIEW</a>
+ <a href="wallets.html" class="nav-link active">WALLETS</a>
+ <a href="analytics.html" class="nav-link">ANALYTICS</a>
++<a href="transactions.html" class="nav-link">TRANSACTIONS</a>
+ <button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
+ </div>
+ </nav></header>
+-- 
+2.43.0
+
