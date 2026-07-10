@@ -1,46 +1,46 @@
 {
-  "generated_at": "2026-07-09T18:39:31Z",
+  "generated_at": "2026-07-10T00:36:17Z",
   "source": "tao.com Data API + taostats",
   "taostats_enabled": true,
   "tao": {
-    "price_usd": 209.16827483050332,
-    "change_24h_pct": 2.569669602730221,
-    "market_cap_usd": 2322784350.778716
+    "price_usd": 211.43221556763717,
+    "change_24h_pct": 3.595094493996048,
+    "market_cap_usd": 2348114622.270696
   },
   "network": {
     "total_subnets": 128,
-    "staked_tao": 7376190.849155282,
-    "staked_root_pct": 72.89729566232396,
-    "staked_alpha_pct": 27.102704337676037
+    "staked_tao": 7380326.272244093,
+    "staked_root_pct": 72.9091194094589,
+    "staked_alpha_pct": 27.090880590541094
   },
   "subnet": {
     "netuid": 25,
     "name": "Mainframe",
-    "price_usd": 0.9320414244827591,
-    "price_tao": 0.004437097,
-    "market_cap_usd": 5087527.481319449,
-    "fdv_usd": 19573068.41760679,
-    "volume_24h_usd": 244045.44180466683,
-    "change_24h_pct": 4.06079156237168,
-    "change_7d_pct": 18.26707998379428,
-    "change_30d_pct": 7.086758409638327,
-    "tao_in_pool": 10769.071345937,
-    "alpha_in_pool": 2427053.214688388,
-    "circulating_alpha": 5458477.861263298,
-    "total_traders": 4082,
-    "holder_count": 1667,
-    "rank": 88
+    "price_usd": 0.9034446425917081,
+    "price_tao": 0.004257282,
+    "market_cap_usd": 4935412.770803646,
+    "fdv_usd": 18981531.137753,
+    "volume_24h_usd": 271197.2074441863,
+    "change_24h_pct": 0.895222855366075,
+    "change_7d_pct": 13.513323267036736,
+    "change_30d_pct": 3.451860527844134,
+    "tao_in_pool": 10548.603981588,
+    "alpha_in_pool": 2477778.981753687,
+    "circulating_alpha": 5462883.433173556,
+    "total_traders": 4083,
+    "holder_count": 1664,
+    "rank": 91
   },
   "leaderboard": {
-    "sn25_rank": 88,
+    "sn25_rank": 91,
     "total": 129,
     "rows": [
       {
-        "rank": 38,
+        "rank": 37,
         "netuid": 93,
         "name": "Bitcast",
-        "mcap_usd": 10137341.67846302,
-        "change_7d": -7.759834510076723,
+        "mcap_usd": 10308301.207290221,
+        "change_7d": -7.0774482659277655,
         "is_sn25": false,
         "is_target": true
       },
@@ -48,71 +48,71 @@
         "rank": 50,
         "netuid": 11,
         "name": "TrajectoryRL",
-        "mcap_usd": 9618716.8056033,
-        "change_7d": 7.11377865154879,
+        "mcap_usd": 9700610.777472783,
+        "change_7d": 3.8399309383184645,
         "is_sn25": false,
         "is_target": true
-      },
-      {
-        "rank": 85,
-        "netuid": 21,
-        "name": "AdTAO",
-        "mcap_usd": 5647925.3687813915,
-        "change_7d": 2.275078795693464,
-        "is_sn25": false,
-        "is_target": false
-      },
-      {
-        "rank": 86,
-        "netuid": 104,
-        "name": "for sale (burn to uid1)",
-        "mcap_usd": 4332249.045345952,
-        "change_7d": 18.82584230577574,
-        "is_sn25": false,
-        "is_target": false
-      },
-      {
-        "rank": 87,
-        "netuid": 27,
-        "name": "Team TBC",
-        "mcap_usd": 5511191.6476170095,
-        "change_7d": 47.429543700117655,
-        "is_sn25": false,
-        "is_target": false
       },
       {
         "rank": 88,
-        "netuid": 25,
-        "name": "Mainframe",
-        "mcap_usd": 5060706.691953758,
-        "change_7d": 18.26707998379428,
-        "is_sn25": true,
-        "is_target": false
-      },
-      {
-        "rank": 89,
         "netuid": 30,
         "name": "Endure Network",
-        "mcap_usd": 4971396.699838368,
-        "change_7d": -8.049231081625068,
+        "mcap_usd": 5178953.60491603,
+        "change_7d": -7.1923202795404135,
         "is_sn25": false,
         "is_target": true
       },
       {
-        "rank": 90,
+        "rank": 89,
         "netuid": 119,
         "name": "Satori",
-        "mcap_usd": 2197711.637284966,
-        "change_7d": -1.9194414110566156,
+        "mcap_usd": 2240358.837508645,
+        "change_7d": -4.904880640310258,
+        "is_sn25": false,
+        "is_target": false
+      },
+      {
+        "rank": 90,
+        "netuid": 31,
+        "name": "rec4ll",
+        "mcap_usd": 1625801.5289222836,
+        "change_7d": -8.582247323752748,
         "is_sn25": false,
         "is_target": false
       },
       {
         "rank": 91,
-        "netuid": 31,
-        "name": "rec4ll",
-        "mcap_usd": 1586844.6853717908,
-        "change_7d": -9.5022208755184,
+        "netuid": 25,
+        "name": "Mainframe",
+        "mcap_usd": 4934876.7632235065,
+        "change_7d": 13.513323267036736,
+        "is_sn25": true,
+        "is_target": false
+      },
+      {
+        "rank": 92,
+        "netuid": 55,
+        "name": "NIOME",
+        "mcap_usd": 4418847.212170893,
+        "change_7d": 14.870980433185782,
+        "is_sn25": false,
+        "is_target": false
+      },
+      {
+        "rank": 93,
+        "netuid": 89,
+        "name": "InfiniteQuant",
+        "mcap_usd": 3799459.9935719483,
+        "change_7d": -5.4844940537730205,
+        "is_sn25": false,
+        "is_target": false
+      },
+      {
+        "rank": 94,
+        "netuid": 94,
+        "name": "pending...",
+        "mcap_usd": 1717372.622628759,
+        "change_7d": 29.34875076621928,
         "is_sn25": false,
         "is_target": false
       }
@@ -120,32 +120,32 @@
   },
   "emissions": {
     "total": {
-      "tao_day": 31.94712,
-      "usd_day": 6682.32397620307,
-      "usd_year": 2439048.2513141204
+      "tao_day": 30.667284000000002,
+      "usd_day": 6484.051801561951,
+      "usd_year": 2366678.907570112
     },
     "owner": {
-      "tao_day": 5.750335355458915,
-      "usd_day": 1202.7877259981904,
-      "usd_year": 439017.51998933946
+      "tao_day": 5.51997073417258,
+      "usd_day": 1167.0996421946254,
+      "usd_year": 425991.3694010383
     },
     "miner": {
-      "tao_day": 13.098392322270541,
-      "usd_day": 2739.768125102439,
-      "usd_year": 1000015.3656623902
+      "tao_day": 12.57365663291371,
+      "usd_day": 2658.4760796836626,
+      "usd_year": 970343.7690845368
     },
     "validator": {
-      "tao_day": 13.098392322270541,
-      "usd_day": 2739.768125102439,
-      "usd_year": 1000015.3656623902
+      "tao_day": 12.57365663291371,
+      "usd_day": 2658.4760796836626,
+      "usd_year": 970343.7690845368
     },
     "incentive_burn_pct": 100.0
   },
   "conviction": {
     "available": true,
     "locked_alpha": 323519.372769362,
-    "locked_usd": 301533.4570437249,
-    "pct_of_circulating": 5.926915542980463,
+    "locked_usd": 292281.84410310985,
+    "pct_of_circulating": 5.922135749863872,
     "lock_count": 2,
     "perpetual_count": 2,
     "top": [
@@ -172,81 +172,81 @@
     {
       "name": "Macrocosmos",
       "hotkey": "5FYwKoHYfiuy9m2yM4wbwM5pQyaEP38MBTTZS8RwNKRuQ8mi",
-      "stake_alpha": 645799.74415113,
-      "dominance_pct": 46.23,
-      "apr_pct": 34.6,
+      "stake_alpha": 645985.705033998,
+      "dominance_pct": 46.41,
+      "apr_pct": 34.47,
       "nominators": 33
     },
     {
       "name": "tao.bot",
       "hotkey": "5E2LP6EnZ54m3wS8s1yPvD5c3xo71kQroBw7aUVK32TKeZ5u",
-      "stake_alpha": 336038.429585161,
-      "dominance_pct": 24.05,
-      "apr_pct": 41.0,
-      "nominators": 337
+      "stake_alpha": 331621.705435257,
+      "dominance_pct": 23.82,
+      "apr_pct": 41.9,
+      "nominators": 336
     },
     {
       "name": "TAO.com",
       "hotkey": "5GEiaoZZqiR3hi17Vk8oBeajXZgms1Bk3an95fCWgYHYg1MM",
-      "stake_alpha": 109453.750111029,
-      "dominance_pct": 7.83,
-      "apr_pct": 38.52,
+      "stake_alpha": 109485.592905405,
+      "dominance_pct": 7.86,
+      "apr_pct": 38.48,
       "nominators": 12
     },
     {
       "name": "Unnamed",
       "hotkey": "5GP7c3fFazW9GXK8Up3qgu2DJBk8inu4aK9TZy3RuoSWVCMi",
-      "stake_alpha": 101235.982791309,
-      "dominance_pct": 7.24,
-      "apr_pct": 42.41,
+      "stake_alpha": 101265.253786023,
+      "dominance_pct": 7.27,
+      "apr_pct": 42.15,
       "nominators": 55
     },
     {
       "name": "Unnamed",
       "hotkey": "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D",
-      "stake_alpha": 66608.005368553,
-      "dominance_pct": 4.76,
+      "stake_alpha": 66931.997128153,
+      "dominance_pct": 4.8,
       "apr_pct": 0.0,
       "nominators": 9
     },
     {
       "name": "Kraken",
       "hotkey": "5DFZEJwgkg98h1kyngSEMYY1NnxXE9tkpLGCtQqf9XCtGBxf",
-      "stake_alpha": 39319.948570406,
-      "dominance_pct": 2.81,
-      "apr_pct": 25.15,
-      "nominators": 79
+      "stake_alpha": 38086.168060027,
+      "dominance_pct": 2.73,
+      "apr_pct": 30.22,
+      "nominators": 78
     },
     {
       "name": "Rizzo (Insured)",
       "hotkey": "5E9vRSxypx39uaz747ZbwA2ey6gFGqFbxU6FuoaVd37KQs25",
-      "stake_alpha": 30522.592466903,
-      "dominance_pct": 2.18,
-      "apr_pct": 33.42,
+      "stake_alpha": 30531.215853771,
+      "dominance_pct": 2.19,
+      "apr_pct": 33.66,
       "nominators": 33
     },
     {
       "name": "Yuma, a DCG Company",
       "hotkey": "5GpDE9kN55cxaa5Ao6k7VQ6LCQVGBfr4Nexdpp51NwoB3fEz",
-      "stake_alpha": 22766.039944029,
-      "dominance_pct": 1.62,
-      "apr_pct": 29.52,
+      "stake_alpha": 22903.057719541,
+      "dominance_pct": 1.64,
+      "apr_pct": 31.35,
       "nominators": 17
     },
     {
       "name": "Unnamed",
       "hotkey": "5CsvRJXuR955WojnGMdok1hbhffZyB4N5ocrv82f3p5A2zVp",
-      "stake_alpha": 20303.643414821,
+      "stake_alpha": 20309.807004556,
       "dominance_pct": 1.45,
-      "apr_pct": 38.36,
+      "apr_pct": 38.24,
       "nominators": 55
     },
     {
       "name": "1T1B.AI",
       "hotkey": "5G9hfkx9wGB1CLMT9WXkpHSAiYzjZb5o1Boyq4KAdDhjwrc5",
-      "stake_alpha": 13939.093097735,
-      "dominance_pct": 0.99,
-      "apr_pct": 18.72,
+      "stake_alpha": 13943.582789528,
+      "dominance_pct": 1.0,
+      "apr_pct": 26.61,
       "nominators": 47
     }
   ],
@@ -254,9 +254,9 @@
     {
       "rank": 1,
       "coldkey": "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D",
-      "alpha": 615800.914264942,
-      "usd": 573951.961329282,
-      "share_pct": 11.281550093571735,
+      "alpha": 616254.623139132,
+      "usd": 556751.9377474209,
+      "share_pct": 11.280757326742572,
       "label": "SN25 owner",
       "hl": "green",
       "is_val": true,
@@ -267,9 +267,9 @@
     {
       "rank": 2,
       "coldkey": "5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL",
-      "alpha": 337073.131345184,
-      "usd": 314166.1214938294,
-      "share_pct": 6.175222102433745,
+      "alpha": 337161.212835728,
+      "usd": 304606.49142616114,
+      "share_pct": 6.171854423770137,
       "label": "Keith",
       "hl": "purple",
       "is_val": false,
@@ -280,9 +280,9 @@
     {
       "rank": 3,
       "coldkey": "5GuRLEMgsMQsKSXQ9CjvQGpDxiMuSCcdkyQNz4nuoHURiuaC",
-      "alpha": 174979.973280034,
-      "usd": 163088.583551878,
-      "share_pct": 3.205655087873472,
+      "alpha": 175030.955996967,
+      "usd": 158130.77948316484,
+      "share_pct": 3.2040031265189595,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -293,9 +293,9 @@
     {
       "rank": 4,
       "coldkey": "5F9LSSxrEjTmnWtUNAj4tCHBQTwVgc4EjDFoSe9BeD3fN9Yi",
-      "alpha": 100244.425859183,
-      "usd": 93431.95747424926,
-      "share_pct": 1.8364904723820321,
+      "alpha": 100270.96436222,
+      "usd": 90589.26556055174,
+      "share_pct": 1.8354952213206848,
       "label": "Keith",
       "hl": "purple",
       "is_val": false,
@@ -306,9 +306,9 @@
     {
       "rank": 5,
       "coldkey": "5FRXwb2qsEhqDQQKcm5m2MF26xTWwW65MHTEtKFFydypuqjG",
-      "alpha": 62867.640387912,
-      "usd": 58595.24510101933,
-      "share_pct": 1.1517430680457508,
+      "alpha": 62915.961330098,
+      "usd": 56841.088197184115,
+      "share_pct": 1.1516987704339172,
       "label": "Macrocosmos",
       "hl": "gold",
       "is_val": true,
@@ -318,23 +318,10 @@
     },
     {
       "rank": 6,
-      "coldkey": "5Gj5coRFcbf79kcAAhPqYpVosiF7nNZsZscRAHcgwemnoH4B",
-      "alpha": 34093.198135417,
-      "usd": 31776.272955307006,
-      "share_pct": 0.6245916719267693,
-      "label": null,
-      "hl": null,
-      "is_val": false,
-      "entered": "2025-07-25",
-      "entered_method": "crossed-threshold",
-      "is_new": false
-    },
-    {
-      "rank": 7,
       "coldkey": "5EFZf5pnTqLegv6gxCrb6TKBQBGz9xLJNK8x9eR273cSons6",
-      "alpha": 32062.560433172,
-      "usd": 29883.63449869818,
-      "share_pct": 0.5873901341747223,
+      "alpha": 32070.938787455,
+      "usd": 28974.31783041283,
+      "share_pct": 0.5870697989399348,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -343,11 +330,11 @@
       "is_new": false
     },
     {
-      "rank": 8,
+      "rank": 7,
       "coldkey": "5HeNFrj2pMf3odu3FSGe7HhUNpCvEK7hrHjaUbRyWR1DPMGM",
-      "alpha": 28017.663565789,
-      "usd": 26113.62306053668,
-      "share_pct": 0.5132871155275631,
+      "alpha": 28024.984937144,
+      "usd": 25319.022500176063,
+      "share_pct": 0.5130071926294688,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -356,11 +343,11 @@
       "is_new": true
     },
     {
-      "rank": 9,
+      "rank": 8,
       "coldkey": "5EqqEM18K9X2Zcp54WCdEwHxZPe39Pb7cXDRXxdVu1F6wFWh",
-      "alpha": 27341.245555591,
-      "usd": 25483.17345476594,
-      "share_pct": 0.5008950526230256,
+      "alpha": 27349.211787135,
+      "usd": 24708.49886819311,
+      "share_pct": 0.5006369277633845,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -369,11 +356,11 @@
       "is_new": false
     },
     {
-      "rank": 10,
+      "rank": 9,
       "coldkey": "5EZYHCoE5rkiZDJMUrhPi23R8e9mWxJgWTusDDk5CPASuP9D",
-      "alpha": 25977.447802626,
-      "usd": 24212.057454386057,
-      "share_pct": 0.47591010649649923,
+      "alpha": 25985.016673755,
+      "usd": 23476.02410156016,
+      "share_pct": 0.4756648570599192,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -382,11 +369,11 @@
       "is_new": false
     },
     {
-      "rank": 11,
+      "rank": 10,
       "coldkey": "5GjoDduJujeACNfPDRVBBpdEqwRRY8vAygUWjQNwwDAn5EE9",
-      "alpha": 24900.267625812,
-      "usd": 23208.080907963747,
-      "share_pct": 0.4561760303640608,
+      "alpha": 24907.436822675,
+      "usd": 22502.490358137165,
+      "share_pct": 0.45593937940216145,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -395,11 +382,11 @@
       "is_new": false
     },
     {
-      "rank": 12,
+      "rank": 11,
       "coldkey": "5EyB11xwWvViSLXGCDwZoGFCKaKfXXNG3stN3epXBqGfDR8g",
-      "alpha": 23818.400918384,
-      "usd": 22199.736320872078,
-      "share_pct": 0.43635609640214823,
+      "alpha": 23824.040050844,
+      "usd": 21523.701348825296,
+      "share_pct": 0.43610742096695054,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -408,11 +395,11 @@
       "is_new": false
     },
     {
-      "rank": 13,
+      "rank": 12,
       "coldkey": "5DywHvwVgfCHRKtf4BBAocyBQNPsxCGTHsQhcjBGRMkrnQG7",
-      "alpha": 21351.777050428,
-      "usd": 19900.740697319197,
-      "share_pct": 0.3911672373346659,
+      "alpha": 21357.351602596,
+      "usd": 19295.18488531279,
+      "share_pct": 0.39095382253450106,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -421,11 +408,11 @@
       "is_new": false
     },
     {
-      "rank": 14,
+      "rank": 13,
       "coldkey": "5G9CSvpfupX1smaKmvCxb7zhMS5gHfJvAoxCEsq3t18yER5E",
-      "alpha": 19079.196625463,
-      "usd": 17782.601600783182,
-      "share_pct": 0.34953327851452254,
+      "alpha": 19083.616597916,
+      "usd": 17240.99117666141,
+      "share_pct": 0.3493323046585628,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -434,11 +421,11 @@
       "is_new": false
     },
     {
-      "rank": 15,
+      "rank": 14,
       "coldkey": "5Chb9pm2PSo6EhmGVgouKvTTfEHN3p58b7pdp5fDBhg3MrGP",
-      "alpha": 18188.930187171,
-      "usd": 16952.836401468317,
-      "share_pct": 0.33322348554806436,
+      "alpha": 18193.361664874,
+      "usd": 16436.695126863775,
+      "share_pct": 0.3330358754205546,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -447,11 +434,11 @@
       "is_new": false
     },
     {
-      "rank": 16,
+      "rank": 15,
       "coldkey": "5FNM2TdFcEryhMVYARyzHDSwDYYQcWSvzf4yEbmR8xYRMokm",
-      "alpha": 18167.049476237,
-      "usd": 16932.442672480694,
-      "share_pct": 0.33282262817554886,
+      "alpha": 18171.622392529,
+      "usd": 16417.054897729842,
+      "share_pct": 0.3326379304046864,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -460,11 +447,11 @@
       "is_new": false
     },
     {
-      "rank": 17,
+      "rank": 16,
       "coldkey": "5H8SwoePPRYaknriaC8CvgCYtXKD5MK9fRB9dvq14EV8otDt",
-      "alpha": 17481.454649357,
-      "usd": 16293.439893417451,
-      "share_pct": 0.32026244483679434,
+      "alpha": 17486.487847864,
+      "usd": 15798.073763897737,
+      "share_pct": 0.32009630192137495,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -473,11 +460,11 @@
       "is_new": false
     },
     {
-      "rank": 18,
+      "rank": 17,
       "coldkey": "5GEZEgicrmPbWr1tMLM5CaikXEkKEub9sz4mAxhqRgZX6M2j",
-      "alpha": 17029.611870163,
-      "usd": 15872.303705855225,
-      "share_pct": 0.31198462837076896,
+      "alpha": 17034.098749653,
+      "usd": 15389.365256752117,
+      "share_pct": 0.31181516058374636,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -486,11 +473,11 @@
       "is_new": true
     },
     {
-      "rank": 19,
+      "rank": 18,
       "coldkey": "5CX9HWTx2J4VRvwR5VLnWNRVxPDHHyFZ6piyogoPUAWmCPHp",
-      "alpha": 15659.84646933,
-      "usd": 14595.625610455638,
-      "share_pct": 0.2868903541857678,
+      "alpha": 15664.355196861,
+      "usd": 14151.877782257652,
+      "share_pct": 0.2867415237480383,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -499,11 +486,11 @@
       "is_new": false
     },
     {
-      "rank": 20,
+      "rank": 19,
       "coldkey": "5CPiu3HcdvDUFYsrNU8KWE9cEqSDc7UQyAfVuEtiixUhDos4",
-      "alpha": 14215.693639994,
-      "usd": 13249.615350230506,
-      "share_pct": 0.2604332929675737,
+      "alpha": 14219.408381302,
+      "usd": 12846.448322910925,
+      "share_pct": 0.2602912647733637,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -512,11 +499,11 @@
       "is_new": true
     },
     {
-      "rank": 21,
+      "rank": 20,
       "coldkey": "5GsZigLw6wwgBqwsGa8WaHv6duegYNQGyZdyGaKVhfosYYat",
-      "alpha": 13727.742779708,
-      "usd": 12794.824935331955,
-      "share_pct": 0.25149397192078893,
+      "alpha": 13731.292044433,
+      "usd": 12405.462233405136,
+      "share_pct": 0.25135612378344435,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -525,11 +512,11 @@
       "is_new": true
     },
     {
-      "rank": 22,
+      "rank": 21,
       "coldkey": "5FnumZwTeKy35oxdQw3jNKjKCkgQ8jZ4F8E7bwY6bP3ncTZP",
-      "alpha": 12944.264473782,
-      "usd": 12064.590699025346,
-      "share_pct": 0.23714055095180336,
+      "alpha": 12947.6469745,
+      "usd": 11697.482293280762,
+      "share_pct": 0.2370112255347597,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -538,11 +525,11 @@
       "is_new": false
     },
     {
-      "rank": 23,
+      "rank": 22,
       "coldkey": "5DMHDFHqXKxGq9mHLC5f9QiVXLAy7WWJmdgri3QD3L3PbLCe",
-      "alpha": 12734.958585389,
-      "usd": 11869.508940654907,
-      "share_pct": 0.23330604078774533,
+      "alpha": 12738.669083091,
+      "usd": 11508.68233686719,
+      "share_pct": 0.23318581183217227,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -551,11 +538,11 @@
       "is_new": true
     },
     {
-      "rank": 24,
+      "rank": 23,
       "coldkey": "5GF7kTAkoGXWWkLp2FxwaPMyLsUPgZd3DHVLbHB3ZqKLWQ3s",
-      "alpha": 12503.618441477,
-      "usd": 11653.890343383118,
-      "share_pct": 0.22906786029508944,
+      "alpha": 12506.713102952,
+      "usd": 11299.122949293502,
+      "share_pct": 0.22893977614467362,
       "label": null,
       "hl": null,
       "is_val": false,
@@ -564,17 +551,30 @@
       "is_new": false
     },
     {
-      "rank": 25,
+      "rank": 24,
       "coldkey": "5E6mEesnJyPSCT8ySapTBZzYBBCJjUsywFnZ6kXXvNM25jwp",
-      "alpha": 12167.790531085,
-      "usd": 11340.884819400291,
-      "share_pct": 0.22291545079691708,
+      "alpha": 12170.9701293,
+      "usd": 10995.797758459794,
+      "share_pct": 0.22279388308729686,
       "label": null,
       "hl": null,
       "is_val": false,
       "entered": "2026-07-06",
       "entered_method": "crossed-threshold",
       "is_new": true
+    },
+    {
+      "rank": 25,
+      "coldkey": "5Cq9rCPcvSrAKxqJWgDy5QnFY623XY8m1gEyZiUuegtNs1gJ",
+      "alpha": 12073.698498368,
+      "usd": 10907.91822461812,
+      "share_pct": 0.22101329171788717,
+      "label": null,
+      "hl": null,
+      "is_val": false,
+      "entered": "2025-05-26",
+      "entered_method": "crossed-threshold",
+      "is_new": false
     }
   ]
 }
