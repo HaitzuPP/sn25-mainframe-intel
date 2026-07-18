@@ -19,10 +19,18 @@ jobs:
           TAO_SECRET: ${{ secrets.TAO_SECRET }}
           TAOSTATS_API_KEY: ${{ secrets.TAOSTATS_API_KEY }}
         run: python3 refresh.py
+      # Reads prices and the top-5 coldkeys out of the data.json just written, so it
+      # must run after refresh.py. Aborts without writing if the ledger reads short,
+      # leaving the previous portfolios.json in place.
+      - name: Regenerate portfolios.json
+        continue-on-error: true   # a taostats hiccup here must not block the data.json commit
+        env:
+          TAOSTATS_API_KEY: ${{ secrets.TAOSTATS_API_KEY }}
+        run: python3 portfolio.py
       - name: Commit if changed
         run: |
           git config user.name "sn25-bot"
           git config user.email "bot@pylon.partners"
-          git add data.json holders_seen.json
+          git add data.json holders_seen.json portfolios.json
           git diff --staged --quiet || git commit -m "auto: refresh $(date -u +%FT%TZ)"
           git push

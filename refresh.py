@@ -33,6 +33,7 @@ NEIGHBORS = 3             # ranks above/below SN25 to show
 MANUAL_LABELS = {
     "5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL": ("Keith", "purple", False),        # wallet 2
     "5F9LSSxrEjTmnWtUNAj4tCHBQTwVgc4EjDFoSe9BeD3fN9Yi": ("Keith", "purple", False),        # wallet 4
+    "5HorGnvyWLzuhW5v1TYFfJkwDRj7rPBNEw3zzCuZGEauoYjE": ("Keith", "purple", False),        # wallet 5
     "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D": ("SN25 owner", "green", False),
     "5FRXwb2qsEhqDQQKcm5m2MF26xTWwW65MHTEtKFFydypuqjG": ("Macrocosmos", "gold", True),
     "5GH2aUTMRUh1RprCgH4x3tRyCaKeUi5BfmYCfs1NARA8R54n": ("Const", "orange", False),
@@ -63,6 +64,8 @@ def tao_get(token, path):
 
 # ---------------- taostats (rate-limited) ----------------
 _TS_DELAY = 3.0   # taostats key is bucket rate-limited; ~3s spacing avoids 429s
+# taostats sits behind Cloudflare, which rejects the default urllib agent with a 1010 block
+UA = "sn25-mainframe-intel/1.0 (+https://github.com/haitzupp/sn25-mainframe-intel)"
 _ts_last = [0.0]
 
 
@@ -78,7 +81,8 @@ def ts_get(path, **params):
         _ts_last[0] = time.time()
         try:
             req = urllib.request.Request(url, headers={"Authorization": TAOSTATS_API_KEY,
-                                                       "accept": "application/json"})
+                                                       "accept": "application/json",
+                                                       "User-Agent": UA})
             with urllib.request.urlopen(req, timeout=40) as r:
                 return json.load(r)
         except urllib.error.HTTPError as e:

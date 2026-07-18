@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SN25 · Wallet Analytics — Keith &amp; Wallet #3</title>
-<meta name="description" content="SN25 wallet analytics: portfolio summary, full trade ledger, purchase price and PnL for Keith and the #3 largest holder.">
+<title>SN25 · Top-Holder Portfolios</title>
+<meta name="description" content="Portfolio analysis of the five largest SN25 alpha holders: total holdings across every subnet, top positions, major SN25 buys, and PnL on the SN25 position.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
 :root{--bg:#0b0a0b;--bg-card:#111;--border:#1a1a1a;--border-hover:#333;--text:#fff;--text-sec:#888;--text-muted:#555;--accent:#00d672;--accent-dim:color-mix(in srgb,#00d672 15%,var(--bg));--red:#dc2626;--red-dim:color-mix(in srgb,#dc2626 15%,var(--bg));--amber:#e0a800;--gold:#d4a017;--purple:#a855f7}
@@ -28,26 +28,34 @@ main{flex:1;width:100%;max-width:1040px;margin:0 auto;padding:2.2rem 1.5rem 3rem
 .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;box-shadow:0 0 0 3px var(--accent-dim)}
 .dot.snap{background:var(--amber);box-shadow:0 0 0 3px color-mix(in srgb,var(--amber) 20%,transparent)}
 .hero-title{font-size:clamp(26px,5vw,40px);letter-spacing:-.02em;line-height:1.05;margin-bottom:.6rem}
-.hero-sub{font-size:14px;color:var(--text-sec);max-width:720px;line-height:1.65}
-.tabs{display:flex;gap:.5rem;margin:1.6rem 0 1.4rem;flex-wrap:wrap}
+.hero-sub{font-size:14px;color:var(--text-sec);max-width:760px;line-height:1.65}
+.tabs{display:flex;gap:.5rem;margin:1.6rem 0 1rem;flex-wrap:wrap}
 .tab{padding:.5rem 1rem;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-sec);font-size:.85rem;font-weight:600;cursor:pointer;font-family:inherit}
 .tab:hover{border-color:var(--border-hover);color:var(--text)}
 .tab.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
-.wmeta{font-size:.75rem;color:var(--text-muted);margin-bottom:1.2rem}
+.tab .r{color:var(--text-muted);font-weight:700;margin-right:.35rem}
+.tab.active .r{color:var(--accent)}
+.wmeta{font-size:.75rem;color:var(--text-muted);margin-bottom:1.2rem;display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
 .wmeta a{color:var(--text-sec);text-decoration:none}.wmeta a:hover{color:var(--accent)}
+.tag{font-size:.62rem;padding:.12rem .5rem;border-radius:4px;font-weight:700;letter-spacing:.3px}
+.tag.purple{background:color-mix(in srgb,var(--purple) 20%,transparent);color:var(--purple);border:1px solid color-mix(in srgb,var(--purple) 45%,transparent)}
+.tag.green{background:var(--accent-dim);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.tag.gold{background:color-mix(in srgb,var(--gold) 20%,transparent);color:var(--gold);border:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
 .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:1.4rem}
 .kpi{background:var(--bg-card);padding:1.05rem 1.15rem}
 .kpi .k{font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.4rem}
 .kpi .v{font-size:1.45rem;font-weight:700;line-height:1.05}
 .kpi .s{font-size:.72rem;margin-top:.3rem;color:var(--text-muted)}
-.up{color:var(--accent)}.down{color:var(--red)}
+.up{color:var(--accent)}.down{color:var(--red)}.mut{color:var(--text-muted)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-bottom:1.4rem}
 .panel{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.2rem}
 .panel h3{font-size:.9rem;margin-bottom:.15rem}
 .panel .cap{font-size:.72rem;color:var(--text-muted);margin-bottom:.7rem}
-.kv{display:flex;justify-content:space-between;padding:.45rem 0;border-top:1px solid var(--border);font-size:.85rem}
-.kv:first-of-type{border-top:none}.kv .k{color:var(--text-sec)}.kv .v{font-weight:600}
-svg{display:block;width:100%;height:auto}
+.kv{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-top:1px solid var(--border);font-size:.85rem}
+.kv:first-of-type{border-top:none}.kv .k{color:var(--text-sec)}.kv .v{font-weight:600;text-align:right}
+.bar{height:5px;border-radius:3px;background:var(--border);overflow:hidden;margin-top:.35rem}
+.bar span{display:block;height:100%;background:var(--accent)}
+.bar.o span{background:var(--text-muted)}
 .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:520px}
 thead th{text-align:right;padding:.55rem .8rem;font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);white-space:nowrap;background:var(--bg-card)}
@@ -56,11 +64,13 @@ tbody td{padding:.5rem .8rem;text-align:right;border-bottom:1px solid var(--bord
 tbody td:first-child,tbody td:nth-child(2){text-align:left}
 tbody tr:last-child td{border-bottom:none}
 tbody tr:hover{background:var(--bg-card)}
+tr.sn25 td{background:var(--accent-dim)}
 .badge{font-size:.62rem;padding:.1rem .45rem;border-radius:4px;font-weight:700}
-.badge.buy{background:var(--accent);color:#001b0e}.badge.sell{background:var(--red);color:#fff}
+.badge.xfer{background:color-mix(in srgb,var(--amber) 22%,transparent);color:var(--amber)}
+.note{font-size:.75rem;color:var(--text-muted);border:1px dashed var(--border-hover);border-radius:10px;padding:.7rem .85rem;line-height:1.55}
 h3.sec{font-size:.95rem;margin:.4rem 0 .6rem}
 footer{border-top:1px solid var(--border);padding:1.8rem 1.5rem;text-align:center;margin-top:2rem}
-.footer-text{font-size:.72rem;color:var(--text-muted)}
+.footer-text{font-size:.72rem;color:var(--text-muted);max-width:760px;margin:0 auto;line-height:1.7}
 .footer-text a{color:var(--text-sec);text-decoration:none}.footer-text a:hover{color:var(--accent)}
 @media(max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
 </style>
@@ -69,12 +79,12 @@ footer{border-top:1px solid var(--border);padding:1.8rem 1.5rem;text-align:cente
 <header><nav>
 <a href="index.html" class="nav-brand">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 13l3-3 3 2 4-6"/></svg>
-SN25 · Wallet Analytics
+SN25 · Portfolios
 </a>
 <div class="nav-links">
 <a href="index.html" class="nav-link">OVERVIEW</a>
 <a href="wallets.html" class="nav-link">WALLETS</a>
-<a href="analytics.html" class="nav-link active">ANALYTICS</a>
+<a href="analytics.html" class="nav-link active">PORTFOLIO</a>
 <a href="transactions.html" class="nav-link">TRANSACTIONS</a>
 <button class="rbtn" onclick="manualRefresh()">↻</button>
 <button class="theme-toggle" onclick="toggleTheme()">&#9728;</button>
@@ -82,763 +92,578 @@ SN25 · Wallet Analytics
 </nav></header>
 
 <main>
-<div class="hero-label"><span>Wallet Analytics · SN25</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading…</span></span></div>
-<h1 class="hero-title">Portfolio &amp; PnL</h1>
-<p class="hero-sub">Every SN25 alpha trade, purchase price, and position PnL for two holders. PnL is cash-flow basis — what came out (sold + still held) minus what went in (bought). Rewards/emissions count as gains.</p>
+<div class="hero-label"><span>Portfolio analysis · SN25</span><span class="status"><span id="dot" class="dot"></span> <span id="statusTxt">loading…</span></span></div>
+<h1 class="hero-title">Top-holder portfolios</h1>
+<p class="hero-sub">What the five largest SN25 alpha holders actually own. Total stake across every Bittensor subnet, their biggest positions, the buys that built the SN25 stake, and whether they are up or down on SN25 itself. Position PnL is unrealised, on the alpha still held, marked against a weighted-average cost book.</p>
 <div class="tabs" id="tabs"></div>
 <div id="wallet"></div>
 </main>
 
-<footer><p class="footer-text">SN25 Wallet Analytics — a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Trades via tao.com (SN25 stake add/remove); prices tao.com. Not financial advice.</p></footer>
+<footer><p class="footer-text">SN25 Top-Holder Portfolios, a <a href="https://pylon.partners" target="_blank" rel="noopener">Pylon Partners</a> project. Positions and stake ledger via taostats; prices via tao.com. SN25 PnL is unrealised and denominated in TAO, so it reflects the SN25 trade rather than TAO's own move. Alpha received as emissions carries no cost basis and shows as gain. Not financial advice.</p></footer>
 
 <script>(function(){var t=localStorage.getItem('sn25-theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
 <script>
 const FALLBACK = {
- "generated_at": "2026-07-07T11:55:02Z",
- "price_tao": 0.004052631,
- "price_usd": 0.864583512155374,
- "tao_usd": 213.46119538988307,
- "source": "tao.com SN25 stake add/remove transactions + TAO price history. PnL on a cash-flow basis (rewards/emissions count as gains).",
+ "generated_at": "2026-07-18T20:39:15Z",
+ "source": "taostats dtao stake balances + SN25 delegation ledger. SN25 PnL marks alpha held at the live price vs TAO-weighted average purchase price.",
+ "tao_usd": 194.86025166901658,
+ "sn25_price_tao": 0.004995111,
+ "sn25_price_usd": 0.97309989575849,
  "wallets": [
   {
-   "name": "Keith",
-   "key": "keith",
-   "coldkeys": [
-    "5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL",
-    "5F9LSSxrEjTmnWtUNAj4tCHBQTwVgc4EjDFoSe9BeD3fN9Yi"
-   ],
-   "note": "2 wallets \u00b7 ranks #2 + #4",
-   "current_alpha": 436199.320904916,
-   "current_value_usd": 377130.7408677613,
-   "n_buys": 22,
-   "n_sells": 15,
-   "n_trades": 37,
-   "alpha_bought": 705225.9895683359,
-   "alpha_sold": 143650.348948803,
-   "invested_usd": 1013257.9838332267,
-   "proceeds_usd": 293005.74219959095,
-   "invested_tao": 3802.211048838,
-   "proceeds_tao": 1153.4559908800002,
-   "avg_buy_price_usd": 1.4367848020652714,
-   "realized_pnl_usd": 86611.10401857787,
-   "unrealized_pnl_usd": -429732.60478445236,
-   "total_pnl_usd": -343121.5007658745,
-   "roi_pct": -33.86319241895549,
-   "first_trade": "2025-10-23",
-   "monthly": [
+   "rank": 1,
+   "coldkey": "5F6aRdsBHajN2NhZHBTB6ibBFu7YuZZEWruWzB8x6B6GiZ4D",
+   "label": "SN25 owner",
+   "hl": "green",
+   "total_value_tao": 3203.369814559,
+   "total_value_usd": 624209.4482538977,
+   "n_positions": 1,
+   "positions": [
     {
-     "month": "2025-10",
-     "buy_usd": 303759.99138174305,
-     "sell_usd": 0,
-     "avg_buy_usd": 1.300421352669555
-    },
-    {
-     "month": "2026-01",
-     "buy_usd": 294575.6758079657,
-     "sell_usd": 13901.356611758201,
-     "avg_buy_usd": 1.9943045740860865
-    },
-    {
-     "month": "2026-02",
-     "buy_usd": 54052.39033297353,
-     "sell_usd": 13073.1299448465,
-     "avg_buy_usd": 1.2757666672221095
-    },
-    {
-     "month": "2026-03",
-     "buy_usd": 0,
-     "sell_usd": 38323.475514167374,
-     "avg_buy_usd": 0
-    },
-    {
-     "month": "2026-04",
-     "buy_usd": 186349.71553153367,
-     "sell_usd": 227707.78012881888,
-     "avg_buy_usd": 1.7317883918089856
-    },
-    {
-     "month": "2026-05",
-     "buy_usd": 97279.32734233754,
-     "sell_usd": 0,
-     "avg_buy_usd": 1.2148425739198754
-    },
-    {
-     "month": "2026-07",
-     "buy_usd": 77240.88343667325,
-     "sell_usd": 0,
-     "avg_buy_usd": 0.8227433153001626
+     "netuid": 25,
+     "name": "Mainframe",
+     "symbol": "\u05d0",
+     "alpha": 631784.876062612,
+     "value_tao": 3203.369814559,
+     "value_usd": 624209.4482538977,
+     "pct": 100.0,
+     "is_sn25": true
     }
    ],
-   "recent": [
+   "sn25": {
+    "current_alpha": 631784.876062612,
+    "current_value_tao": 3155.8355840539903,
+    "current_value_usd": 614789.7970383184,
+    "basis_available": false,
+    "coverage": 0.15591885514003598,
+    "book_alpha": 98507.174570472,
+    "avg_buy_price_tao": 0.005110448052160103,
+    "avg_buy_price_usd": 1.407626519426464,
+    "current_price_tao": 0.004995111,
+    "current_price_usd": 0.97309989575849,
+    "cost_tao": 503.4157984074638,
+    "cost_usd": 138661.31127916859,
+    "pnl_tao": 0.0,
+    "pnl_usd": 0.0,
+    "pnl_pct": 0.0,
+    "up": true,
+    "n_buys": 64,
+    "n_sells": 64,
+    "alpha_bought": 790608.898405427,
+    "alpha_sold": 790710.808247691,
+    "first_trade": "2025-02-23",
+    "last_trade": "2026-05-19"
+   },
+   "major_buys": [
     {
-     "ts": "2026-07-06",
-     "side": "buy",
-     "alpha": 93882.1,
-     "price_usd": 0.8227,
-     "usd": 77241
+     "date": "2026-01-02",
+     "alpha": 98507.174570472,
+     "tao": 392.755223978,
+     "usd": 94958.07,
+     "price_usd": 0.96,
+     "is_transfer": false
     },
     {
-     "ts": "2026-05-27",
-     "side": "buy",
-     "alpha": 80075.7,
-     "price_usd": 1.2148,
-     "usd": 97279
+     "date": "2026-05-19",
+     "alpha": 70891.376950122,
+     "tao": 366.651408895,
+     "usd": 96095.58,
+     "price_usd": 1.36,
+     "is_transfer": false
     },
     {
-     "ts": "2026-04-24",
-     "side": "buy",
-     "alpha": 2951.5,
-     "price_usd": 1.2196,
-     "usd": 3600
+     "date": "2026-02-17",
+     "alpha": 59650.122859956,
+     "tao": 287.874920983,
+     "usd": 55362.9,
+     "price_usd": 0.93,
+     "is_transfer": false
     },
     {
-     "ts": "2026-04-24",
-     "side": "buy",
-     "alpha": 5129.2,
-     "price_usd": 1.21,
-     "usd": 6206
+     "date": "2026-03-25",
+     "alpha": 46524.496696872,
+     "tao": 242.742267059,
+     "usd": 87870.1,
+     "price_usd": 1.89,
+     "is_transfer": false
     },
     {
-     "ts": "2026-04-18",
-     "side": "sell",
-     "alpha": 19956.3,
-     "price_usd": 1.7208,
-     "usd": 34341
-    },
-    {
-     "ts": "2026-04-18",
-     "side": "sell",
-     "alpha": 20000.0,
-     "price_usd": 1.7462,
-     "usd": 34924
-    },
-    {
-     "ts": "2026-04-18",
-     "side": "sell",
-     "alpha": 20000.0,
-     "price_usd": 1.7742,
-     "usd": 35485
-    },
-    {
-     "ts": "2026-04-18",
-     "side": "sell",
-     "alpha": 20000.0,
-     "price_usd": 1.803,
-     "usd": 36059
-    },
-    {
-     "ts": "2026-04-18",
-     "side": "sell",
-     "alpha": 20000.0,
-     "price_usd": 1.8364,
-     "usd": 36728
-    },
-    {
-     "ts": "2026-04-16",
-     "side": "buy",
-     "alpha": 27576.2,
-     "price_usd": 1.8154,
-     "usd": 50061
-    },
-    {
-     "ts": "2026-04-16",
-     "side": "sell",
-     "alpha": 5900.0,
-     "price_usd": 2.3759,
-     "usd": 14018
-    },
-    {
-     "ts": "2026-04-16",
-     "side": "sell",
-     "alpha": 5000.0,
-     "price_usd": 2.3993,
-     "usd": 11997
-    },
-    {
-     "ts": "2026-04-16",
-     "side": "sell",
-     "alpha": 5000.0,
-     "price_usd": 2.4102,
-     "usd": 12051
-    },
-    {
-     "ts": "2026-04-16",
-     "side": "sell",
-     "alpha": 5000.0,
-     "price_usd": 2.4211,
-     "usd": 12106
-    },
-    {
-     "ts": "2026-04-16",
-     "side": "buy",
-     "alpha": 71948.4,
-     "price_usd": 1.758,
-     "usd": 126483
-    },
-    {
-     "ts": "2026-03-25",
-     "side": "sell",
-     "alpha": 2000.0,
-     "price_usd": 4.7694,
-     "usd": 9539
-    },
-    {
-     "ts": "2026-03-25",
-     "side": "sell",
-     "alpha": 2000.0,
-     "price_usd": 4.7834,
-     "usd": 9567
-    },
-    {
-     "ts": "2026-03-25",
-     "side": "sell",
-     "alpha": 2000.0,
-     "price_usd": 4.7974,
-     "usd": 9595
-    },
-    {
-     "ts": "2026-03-25",
-     "side": "sell",
-     "alpha": 2000.0,
-     "price_usd": 4.8115,
-     "usd": 9623
-    },
-    {
-     "ts": "2026-02-13",
-     "side": "buy",
-     "alpha": 9903.1,
-     "price_usd": 1.1783,
-     "usd": 11669
-    },
-    {
-     "ts": "2026-02-12",
-     "side": "buy",
-     "alpha": 23268.6,
-     "price_usd": 1.3104,
-     "usd": 30492
-    },
-    {
-     "ts": "2026-02-12",
-     "side": "buy",
-     "alpha": 9196.8,
-     "price_usd": 1.293,
-     "usd": 11892
-    },
-    {
-     "ts": "2026-02-07",
-     "side": "sell",
-     "alpha": 9572.0,
-     "price_usd": 1.3658,
-     "usd": 13073
-    },
-    {
-     "ts": "2026-01-16",
-     "side": "buy",
-     "alpha": 9913.3,
-     "price_usd": 1.6137,
-     "usd": 15997
-    },
-    {
-     "ts": "2026-01-15",
-     "side": "buy",
-     "alpha": 20285.1,
-     "price_usd": 1.0224,
-     "usd": 20740
-    },
-    {
-     "ts": "2026-01-09",
-     "side": "sell",
-     "alpha": 5222.1,
-     "price_usd": 2.662,
-     "usd": 13901
-    },
-    {
-     "ts": "2026-01-09",
-     "side": "buy",
-     "alpha": 9572.1,
-     "price_usd": 2.4746,
-     "usd": 23687
-    },
-    {
-     "ts": "2026-01-09",
-     "side": "buy",
-     "alpha": 5218.2,
-     "price_usd": 2.702,
-     "usd": 14100
-    },
-    {
-     "ts": "2026-01-09",
-     "side": "buy",
-     "alpha": 6610.6,
-     "price_usd": 2.1755,
-     "usd": 14382
-    },
-    {
-     "ts": "2026-01-09",
-     "side": "buy",
-     "alpha": 7183.5,
-     "price_usd": 2.9442,
-     "usd": 21150
-    },
-    {
-     "ts": "2026-01-06",
-     "side": "buy",
-     "alpha": 7905.9,
-     "price_usd": 2.7215,
-     "usd": 21516
-    },
-    {
-     "ts": "2026-01-03",
-     "side": "buy",
-     "alpha": 19050.9,
-     "price_usd": 2.4264,
-     "usd": 46226
-    },
-    {
-     "ts": "2026-01-01",
-     "side": "buy",
-     "alpha": 8903.6,
-     "price_usd": 2.4583,
-     "usd": 21887
-    },
-    {
-     "ts": "2026-01-01",
-     "side": "buy",
-     "alpha": 20202.2,
-     "price_usd": 1.702,
-     "usd": 34384
-    },
-    {
-     "ts": "2026-01-01",
-     "side": "buy",
-     "alpha": 12900.0,
-     "price_usd": 2.0943,
-     "usd": 27016
-    },
-    {
-     "ts": "2026-01-01",
-     "side": "buy",
-     "alpha": 19963.0,
-     "price_usd": 1.6777,
-     "usd": 33491
-    },
-    {
-     "ts": "2025-10-23",
-     "side": "buy",
-     "alpha": 233585.8,
-     "price_usd": 1.3004,
-     "usd": 303760
+     "date": "2026-03-25",
+     "alpha": 30000.0,
+     "tao": 156.5253851,
+     "usd": 56660.51,
+     "price_usd": 1.89,
+     "is_transfer": true
     }
    ]
   },
   {
-   "name": "Wallet #3",
-   "key": "w3",
-   "coldkeys": [
-    "5GuRLEMgsMQsKSXQ9CjvQGpDxiMuSCcdkyQNz4nuoHURiuaC"
-   ],
-   "note": "rank #3 \u00b7 unlabelled whale",
-   "current_alpha": 174482.470702876,
-   "current_value_usd": 150854.66732983966,
-   "n_buys": 373,
-   "n_sells": 215,
-   "n_trades": 588,
-   "alpha_bought": 8331106.777317729,
-   "alpha_sold": 7459327.301699719,
-   "invested_usd": 15397416.246847825,
-   "proceeds_usd": 13171189.209194606,
-   "invested_tao": 53003.173489972,
-   "proceeds_tao": 47022.16492728599,
-   "avg_buy_price_usd": 1.8481837597819333,
-   "realized_pnl_usd": -615018.3687048052,
-   "unrealized_pnl_usd": -1460354.0016185741,
-   "total_pnl_usd": -2075372.3703233793,
-   "roi_pct": -13.478705368819602,
-   "first_trade": "2025-02-13",
-   "monthly": [
+   "rank": 2,
+   "coldkey": "5FFMceCxJufR8rKeLP8s8A2YcyENrcwaQMb47A7M4oKDhbXL",
+   "label": "Keith",
+   "hl": "purple",
+   "total_value_tao": 1725.429479912,
+   "total_value_usd": 336217.62269279273,
+   "n_positions": 2,
+   "positions": [
     {
-     "month": "2025-02",
-     "buy_usd": 703269.0115140218,
-     "sell_usd": 0,
-     "avg_buy_usd": 10.379904080276894
+     "netuid": 25,
+     "name": "Mainframe",
+     "symbol": "\u05d0",
+     "alpha": 340295.973918132,
+     "value_tao": 1725.41935106,
+     "value_usd": 336215.64898214285,
+     "pct": 99.99941296632996,
+     "is_sn25": true
     },
     {
-     "month": "2025-03",
-     "buy_usd": 908106.4995530505,
-     "sell_usd": 0,
-     "avg_buy_usd": 7.318840988593003
-    },
-    {
-     "month": "2025-04",
-     "buy_usd": 1908459.9822251787,
-     "sell_usd": 1884129.8139247324,
-     "avg_buy_usd": 3.9157047184709266
-    },
-    {
-     "month": "2025-05",
-     "buy_usd": 823915.8862776173,
-     "sell_usd": 624661.2913559504,
-     "avg_buy_usd": 4.501663737392275
-    },
-    {
-     "month": "2025-06",
-     "buy_usd": 29683.279470328245,
-     "sell_usd": 170350.48713231392,
-     "avg_buy_usd": 0.9703554985306438
-    },
-    {
-     "month": "2025-07",
-     "buy_usd": 727015.8650335709,
-     "sell_usd": 1190000.761852584,
-     "avg_buy_usd": 3.4600236722861295
-    },
-    {
-     "month": "2025-08",
-     "buy_usd": 420576.76203522895,
-     "sell_usd": 871075.9741019683,
-     "avg_buy_usd": 1.393694006743985
-    },
-    {
-     "month": "2025-09",
-     "buy_usd": 1269488.251961262,
-     "sell_usd": 0,
-     "avg_buy_usd": 1.0125358909472317
-    },
-    {
-     "month": "2025-10",
-     "buy_usd": 1807072.7963311593,
-     "sell_usd": 1194627.226207064,
-     "avg_buy_usd": 1.2210329394176542
-    },
-    {
-     "month": "2025-11",
-     "buy_usd": 887540.2977285037,
-     "sell_usd": 673588.5105564512,
-     "avg_buy_usd": 3.1091518002501513
-    },
-    {
-     "month": "2025-12",
-     "buy_usd": 358641.3884786714,
-     "sell_usd": 418988.7376206365,
-     "avg_buy_usd": 1.1130530422812142
-    },
-    {
-     "month": "2026-01",
-     "buy_usd": 1756144.8028426664,
-     "sell_usd": 2373661.062853475,
-     "avg_buy_usd": 1.6415762422817735
-    },
-    {
-     "month": "2026-02",
-     "buy_usd": 618301.2126623021,
-     "sell_usd": 738954.6000491709,
-     "avg_buy_usd": 1.23052997631273
-    },
-    {
-     "month": "2026-03",
-     "buy_usd": 1957197.5753420524,
-     "sell_usd": 1658347.1065159687,
-     "avg_buy_usd": 1.4844620648644815
-    },
-    {
-     "month": "2026-04",
-     "buy_usd": 175345.4675409061,
-     "sell_usd": 662104.8606586535,
-     "avg_buy_usd": 1.586307523002009
-    },
-    {
-     "month": "2026-05",
-     "buy_usd": 747612.4138429111,
-     "sell_usd": 363350.0002753926,
-     "avg_buy_usd": 1.873924471385836
-    },
-    {
-     "month": "2026-06",
-     "buy_usd": 299044.7540083903,
-     "sell_usd": 347348.7760902442,
-     "avg_buy_usd": 1.618402867360549
+     "netuid": 0,
+     "name": "Root",
+     "symbol": "\u03a4",
+     "alpha": 0.010128852,
+     "value_tao": 0.010128852,
+     "value_usd": 1.973710649838222,
+     "pct": 0.0005870336700469839,
+     "is_sn25": false
     }
    ],
-   "recent": [
+   "sn25": {
+    "current_alpha": 340295.973918132,
+    "current_value_tao": 1699.8161625741743,
+    "current_value_usd": 331141.9767467681,
+    "basis_available": true,
+    "coverage": 0.8026688096062076,
+    "book_alpha": 273144.9642986521,
+    "avg_buy_price_tao": 0.00543172747672845,
+    "avg_buy_price_usd": 1.2853326104746812,
+    "current_price_tao": 0.004995111,
+    "current_price_usd": 0.97309989575849,
+    "cost_tao": 1483.649007711,
+    "cost_usd": 351082.13000000006,
+    "pnl_tao": 216.16715486317435,
+    "pnl_usd": -19940.153253231954,
+    "pnl_pct": 14.569965924533651,
+    "up": true,
+    "n_buys": 4,
+    "n_sells": 1,
+    "alpha_bought": 506730.78689236206,
+    "alpha_sold": 265263.430795286,
+    "first_trade": "2025-10-23",
+    "last_trade": "2026-07-01"
+   },
+   "major_buys": [
     {
-     "ts": "2026-06-30",
-     "side": "buy",
-     "alpha": 11954.2,
-     "price_usd": 1.6886,
-     "usd": 20186
+     "date": "2026-01-24",
+     "alpha": 265263.430795286,
+     "tao": 1454.288527333,
+     "usd": 345294.09,
+     "price_usd": 1.3,
+     "is_transfer": false
     },
     {
-     "ts": "2026-06-30",
-     "side": "sell",
-     "alpha": 26178.8,
-     "price_usd": 0.7707,
-     "usd": 20177
+     "date": "2025-10-23",
+     "alpha": 233585.82259371,
+     "tao": 789.98,
+     "usd": 305134.53,
+     "price_usd": 1.31,
+     "is_transfer": false
     },
     {
-     "ts": "2026-06-11",
-     "side": "sell",
-     "alpha": 19186.1,
-     "price_usd": 0.8636,
-     "usd": 16570
+     "date": "2026-07-01",
+     "alpha": 3940.766751683,
+     "tao": 14.680240189,
+     "usd": 2894.02,
+     "price_usd": 0.73,
+     "is_transfer": true
     },
     {
-     "ts": "2026-06-07",
-     "side": "buy",
-     "alpha": 105982.3,
-     "price_usd": 1.8493,
-     "usd": 195989
+     "date": "2026-07-01",
+     "alpha": 3940.766751683,
+     "tao": 14.680240189,
+     "usd": 2894.02,
+     "price_usd": 0.73,
+     "is_transfer": true
+    }
+   ]
+  },
+  {
+   "rank": 3,
+   "coldkey": "5GuRLEMgsMQsKSXQ9CjvQGpDxiMuSCcdkyQNz4nuoHURiuaC",
+   "label": null,
+   "hl": null,
+   "total_value_tao": 22282.492154801,
+   "total_value_usd": 4341972.02909741,
+   "n_positions": 17,
+   "positions": [
+    {
+     "netuid": 28,
+     "name": "gm",
+     "symbol": "\u05d3",
+     "alpha": 307581.682204381,
+     "value_tao": 4190.761972324,
+     "value_usd": 816612.932611999,
+     "pct": 18.807420387315414,
+     "is_sn25": false
     },
     {
-     "ts": "2026-06-07",
-     "side": "buy",
-     "alpha": 66841.2,
-     "price_usd": 1.2398,
-     "usd": 82871
+     "netuid": 62,
+     "name": "Ridges",
+     "symbol": "\u0632",
+     "alpha": 277111.64954825,
+     "value_tao": 3267.226987664,
+     "value_usd": 636652.67307601,
+     "pct": 14.662753900981587,
+     "is_sn25": false
     },
     {
-     "ts": "2026-06-05",
-     "side": "sell",
-     "alpha": 75405.4,
-     "price_usd": 1.4243,
-     "usd": 107399
+     "netuid": 7,
+     "name": "Allways",
+     "symbol": "\u03b7",
+     "alpha": 516908.377453631,
+     "value_tao": 2132.712791444,
+     "value_usd": 415580.95127850864,
+     "pct": 9.57124892775732,
+     "is_sn25": false
     },
     {
-     "ts": "2026-06-01",
-     "side": "sell",
-     "alpha": 88887.4,
-     "price_usd": 0.9138,
-     "usd": 81229
+     "netuid": 74,
+     "name": "Gittensor",
+     "symbol": "\u0644",
+     "alpha": 381712.351756052,
+     "value_tao": 2059.448070881,
+     "value_usd": 401304.5693911424,
+     "pct": 9.242449437763048,
+     "is_sn25": false
     },
     {
-     "ts": "2026-06-01",
-     "side": "sell",
-     "alpha": 58595.7,
-     "price_usd": 2.0816,
-     "usd": 121974
+     "netuid": 24,
+     "name": "Quasar",
+     "symbol": "\u03c9",
+     "alpha": 238784.182873439,
+     "value_tao": 1967.442455699,
+     "value_usd": 383376.33206181513,
+     "pct": 8.829544029594077,
+     "is_sn25": false
+    }
+   ],
+   "sn25": {
+    "current_alpha": 176879.027346568,
+    "current_value_tao": 883.5303751681427,
+    "current_value_usd": 172120.96307280843,
+    "basis_available": true,
+    "coverage": 0.8035610720950452,
+    "book_alpha": 142133.100845737,
+    "avg_buy_price_tao": 0.004162252851192179,
+    "avg_buy_price_usd": 1.2123663842244625,
+    "current_price_tao": 0.004995111,
+    "current_price_usd": 0.97309989575849,
+    "cost_tao": 591.5939042439544,
+    "cost_usd": 172317.39355095706,
+    "pnl_tao": 291.93647092418826,
+    "pnl_usd": -196.43047814862803,
+    "pnl_pct": 49.34744405408934,
+    "up": true,
+    "n_buys": 9,
+    "n_sells": 7,
+    "alpha_bought": 265547.116563187,
+    "alpha_sold": 125325.162670734,
+    "first_trade": "2025-03-03",
+    "last_trade": "2026-06-30"
+   },
+   "major_buys": [
+    {
+     "date": "2025-10-09",
+     "alpha": 124202.687884703,
+     "tao": 399.798580911,
+     "usd": 130407.67,
+     "price_usd": 1.05,
+     "is_transfer": false
     },
     {
-     "ts": "2026-05-31",
-     "side": "buy",
-     "alpha": 12468.5,
-     "price_usd": 2.0317,
-     "usd": 25333
+     "date": "2026-05-03",
+     "alpha": 34775.609164341,
+     "tao": 161.69081059,
+     "usd": 46901.32,
+     "price_usd": 1.35,
+     "is_transfer": true
     },
     {
-     "ts": "2026-05-31",
-     "side": "sell",
-     "alpha": 22059.9,
-     "price_usd": 1.1488,
-     "usd": 25343
+     "date": "2026-05-03",
+     "alpha": 34775.609164341,
+     "tao": 161.69081059,
+     "usd": 46901.32,
+     "price_usd": 1.35,
+     "is_transfer": true
     },
     {
-     "ts": "2026-05-28",
-     "side": "buy",
-     "alpha": 15440.7,
-     "price_usd": 4.1436,
-     "usd": 63981
+     "date": "2026-03-21",
+     "alpha": 20250.795022409,
+     "tao": 100.0,
+     "usd": 27596.9,
+     "price_usd": 1.36,
+     "is_transfer": false
     },
     {
-     "ts": "2026-05-28",
-     "side": "sell",
-     "alpha": 27914.8,
-     "price_usd": 2.2931,
-     "usd": 64011
+     "date": "2026-05-21",
+     "alpha": 20152.263637477,
+     "tao": 100.0,
+     "usd": 28356.41,
+     "price_usd": 1.41,
+     "is_transfer": false
+    }
+   ]
+  },
+  {
+   "rank": 4,
+   "coldkey": "5F9LSSxrEjTmnWtUNAj4tCHBQTwVgc4EjDFoSe9BeD3fN9Yi",
+   "label": "Keith",
+   "hl": "purple",
+   "total_value_tao": 6567.022012453,
+   "total_value_usd": 1279651.5620625631,
+   "n_positions": 15,
+   "positions": [
+    {
+     "netuid": 64,
+     "name": "Chutes",
+     "symbol": "\u0634",
+     "alpha": 23583.338747859,
+     "value_tao": 1847.999197284,
+     "value_usd": 360101.5886669009,
+     "pct": 28.14059696738722,
+     "is_sn25": false
     },
     {
-     "ts": "2026-05-28",
-     "side": "buy",
-     "alpha": 68809.7,
-     "price_usd": 1.2662,
-     "usd": 87128
+     "netuid": 95,
+     "name": "Actual",
+     "symbol": "\u1685",
+     "alpha": 21605.843344687,
+     "value_tao": 990.694981892,
+     "value_usd": 193047.07349870694,
+     "pct": 15.085909260138793,
+     "is_sn25": false
     },
     {
-     "ts": "2026-05-28",
-     "side": "buy",
-     "alpha": 18682.5,
-     "price_usd": 2.0882,
-     "usd": 39013
+     "netuid": 13,
+     "name": "Data Universe",
+     "symbol": "\u03bd",
+     "alpha": 126078.40315255,
+     "value_tao": 870.200198949,
+     "value_usd": 169567.42976963043,
+     "pct": 13.251062617101711,
+     "is_sn25": false
     },
     {
-     "ts": "2026-05-28",
-     "side": "sell",
-     "alpha": 53668.7,
-     "price_usd": 2.3514,
-     "usd": 126199
+     "netuid": 9,
+     "name": "iota",
+     "symbol": "\u03b9",
+     "alpha": 25384.197011757,
+     "value_tao": 836.079550818,
+     "value_usd": 162918.67168771382,
+     "pct": 12.73148695455182,
+     "is_sn25": false
     },
     {
-     "ts": "2026-05-21",
-     "side": "buy",
-     "alpha": 118017.9,
-     "price_usd": 2.0697,
-     "usd": 244259
+     "netuid": 74,
+     "name": "Gittensor",
+     "symbol": "\u0644",
+     "alpha": 106982.140860677,
+     "value_tao": 577.200316657,
+     "value_usd": 112473.39896721908,
+     "pct": 8.789376913347617,
+     "is_sn25": false
+    }
+   ],
+   "sn25": {
+    "current_alpha": 101212.190554737,
+    "current_value_tao": 505.5661263740629,
+    "current_value_usd": 98489.572078303,
+    "basis_available": true,
+    "coverage": 1.0274873553804413,
+    "book_alpha": 103994.246005348,
+    "avg_buy_price_tao": 0.00391418868662467,
+    "avg_buy_price_usd": 0.8198184691243622,
+    "current_price_tao": 0.004995111,
+    "current_price_usd": 0.97309989575849,
+    "cost_tao": 407.0531011881959,
+    "cost_usd": 85256.40355784672,
+    "pnl_tao": 98.51302518586698,
+    "pnl_usd": 13233.168520456282,
+    "pnl_pct": 24.20151692698214,
+    "up": true,
+    "n_buys": 586,
+    "n_sells": 2,
+    "alpha_bought": 111036.436017863,
+    "alpha_sold": 7042.1900125150005,
+    "first_trade": "2026-04-19",
+    "last_trade": "2026-07-06"
+   },
+   "major_buys": [
+    {
+     "date": "2026-07-06",
+     "alpha": 93882.11608683,
+     "tao": 362.0,
+     "usd": 75090.3,
+     "price_usd": 0.8,
+     "is_transfer": false
     },
     {
-     "ts": "2026-05-21",
-     "side": "sell",
-     "alpha": 20731.3,
-     "price_usd": 2.6665,
-     "usd": 55280
+     "date": "2026-04-24",
+     "alpha": 5129.226614685,
+     "tao": 25.0,
+     "usd": 6198.36,
+     "price_usd": 1.21,
+     "is_transfer": false
     },
     {
-     "ts": "2026-05-21",
-     "side": "buy",
-     "alpha": 20152.3,
-     "price_usd": 1.3884,
-     "usd": 27979
+     "date": "2026-06-05",
+     "alpha": 5000.0,
+     "tao": 20.001319935,
+     "usd": 3977.32,
+     "price_usd": 0.8,
+     "is_transfer": true
     },
     {
-     "ts": "2026-05-09",
-     "side": "buy",
-     "alpha": 56283.9,
-     "price_usd": 1.8773,
-     "usd": 105664
+     "date": "2026-04-24",
+     "alpha": 2951.521044632,
+     "tao": 14.5,
+     "usd": 3581.29,
+     "price_usd": 1.21,
+     "is_transfer": false
     },
     {
-     "ts": "2026-05-09",
-     "side": "sell",
-     "alpha": 69741.3,
-     "price_usd": 1.3266,
-     "usd": 92517
+     "date": "2026-04-24",
+     "alpha": 2042.190012515,
+     "tao": 9.992367271,
+     "usd": 2477.45,
+     "price_usd": 1.21,
+     "is_transfer": false
+    }
+   ]
+  },
+  {
+   "rank": 5,
+   "coldkey": "5HorGnvyWLzuhW5v1TYFfJkwDRj7rPBNEw3zzCuZGEauoYjE",
+   "label": "Keith",
+   "hl": "purple",
+   "total_value_tao": 6397.503442635,
+   "total_value_usd": 1246619.1308852562,
+   "n_positions": 10,
+   "positions": [
+    {
+     "netuid": 9,
+     "name": "iota",
+     "symbol": "\u03b9",
+     "alpha": 112814.116710178,
+     "value_tao": 3715.758900525,
+     "value_usd": 724053.7144976899,
+     "pct": 58.08138962086365,
+     "is_sn25": false
     },
     {
-     "ts": "2026-05-08",
-     "side": "buy",
-     "alpha": 89100.1,
-     "price_usd": 1.7313,
-     "usd": 154256
+     "netuid": 4,
+     "name": "Targon",
+     "symbol": "\u03b4",
+     "alpha": 18661.553091504,
+     "value_tao": 1002.345663325,
+     "value_usd": 195317.32821485685,
+     "pct": 15.667762781416409,
+     "is_sn25": false
     },
     {
-     "ts": "2026-04-28",
-     "side": "buy",
-     "alpha": 20668.0,
-     "price_usd": 3.5335,
-     "usd": 73030
+     "netuid": 64,
+     "name": "Chutes",
+     "symbol": "\u0634",
+     "alpha": 8783.234557018,
+     "value_tao": 688.258616372,
+     "value_usd": 134114.24719961706,
+     "pct": 10.758237530365758,
+     "is_sn25": false
     },
     {
-     "ts": "2026-04-10",
-     "side": "sell",
-     "alpha": 13983.2,
-     "price_usd": 1.1428,
-     "usd": 15981
+     "netuid": 25,
+     "name": "Mainframe",
+     "symbol": "\u05d0",
+     "alpha": 66713.299618735,
+     "value_tao": 338.259645295,
+     "value_usd": 65913.35961165598,
+     "pct": 5.287369492304295,
+     "is_sn25": true
     },
     {
-     "ts": "2026-04-10",
-     "side": "sell",
-     "alpha": 30220.4,
-     "price_usd": 0.877,
-     "usd": 26503
+     "netuid": 12,
+     "name": "Compute Horde",
+     "symbol": "\u03bc",
+     "alpha": 41188.603157356,
+     "value_tao": 234.598174135,
+     "value_usd": 45713.859253037874,
+     "pct": 3.667026930717427,
+     "is_sn25": false
+    }
+   ],
+   "sn25": {
+    "current_alpha": 66713.299618735,
+    "current_value_tao": 333.24033677183905,
+    "current_value_usd": 64918.704904695944,
+    "basis_available": true,
+    "coverage": 0.9993678619929606,
+    "book_alpha": 66671.127606471,
+    "avg_buy_price_tao": 0.004651547068197369,
+    "avg_buy_price_usd": 0.8830092180436477,
+    "current_price_tao": 0.004995111,
+    "current_price_usd": 0.97309989575849,
+    "cost_tao": 310.1238881512929,
+    "cost_usd": 58871.22025387821,
+    "pnl_tao": 23.11644862054618,
+    "pnl_usd": 6047.484650817736,
+    "pnl_pct": 7.453940023242872,
+    "up": true,
+    "n_buys": 57,
+    "n_sells": 11,
+    "alpha_bought": 96813.005297241,
+    "alpha_sold": 37571.250487694,
+    "first_trade": "2025-03-26",
+    "last_trade": "2026-07-17"
+   },
+   "major_buys": [
+    {
+     "date": "2026-07-17",
+     "alpha": 66615.301663648,
+     "tao": 309.85,
+     "usd": 58743.64,
+     "price_usd": 0.88,
+     "is_transfer": false
     },
     {
-     "ts": "2026-04-10",
-     "side": "sell",
-     "alpha": 109121.5,
-     "price_usd": 1.1657,
-     "usd": 127203
+     "date": "2025-05-01",
+     "alpha": 9330.723960222,
+     "tao": 156.545612738,
+     "usd": 55612.42,
+     "price_usd": 5.96,
+     "is_transfer": false
     },
     {
-     "ts": "2026-04-10",
-     "side": "sell",
-     "alpha": 128912.5,
-     "price_usd": 1.4272,
-     "usd": 183981
+     "date": "2025-05-01",
+     "alpha": 5039.905709343,
+     "tao": 85.585280997,
+     "usd": 30403.95,
+     "price_usd": 6.03,
+     "is_transfer": false
     },
     {
-     "ts": "2026-04-10",
-     "side": "sell",
-     "alpha": 109775.9,
-     "price_usd": 1.2288,
-     "usd": 134892
+     "date": "2025-04-07",
+     "alpha": 2477.298133363,
+     "tao": 40.392268773,
+     "usd": 7408.07,
+     "price_usd": 2.99,
+     "is_transfer": false
     },
     {
-     "ts": "2026-04-05",
-     "side": "buy",
-     "alpha": 77735.0,
-     "price_usd": 1.1581,
-     "usd": 90023
-    },
-    {
-     "ts": "2026-04-04",
-     "side": "sell",
-     "alpha": 17909.7,
-     "price_usd": 0.8158,
-     "usd": 14611
-    },
-    {
-     "ts": "2026-04-04",
-     "side": "sell",
-     "alpha": 10853.6,
-     "price_usd": 1.0202,
-     "usd": 11073
-    },
-    {
-     "ts": "2026-04-04",
-     "side": "sell",
-     "alpha": 150000.0,
-     "price_usd": 0.9046,
-     "usd": 135686
-    },
-    {
-     "ts": "2026-04-03",
-     "side": "buy",
-     "alpha": 12133.9,
-     "price_usd": 1.0131,
-     "usd": 12293
-    },
-    {
-     "ts": "2026-04-02",
-     "side": "sell",
-     "alpha": 12224.5,
-     "price_usd": 0.996,
-     "usd": 12176
-    },
-    {
-     "ts": "2026-03-30",
-     "side": "buy",
-     "alpha": 104648.1,
-     "price_usd": 1.1748,
-     "usd": 122945
-    },
-    {
-     "ts": "2026-03-30",
-     "side": "sell",
-     "alpha": 53369.7,
-     "price_usd": 1.153,
-     "usd": 61537
-    },
-    {
-     "ts": "2026-03-30",
-     "side": "sell",
-     "alpha": 50941.7,
-     "price_usd": 1.2087,
-     "usd": 61574
-    },
-    {
-     "ts": "2026-03-30",
-     "side": "buy",
-     "alpha": 10778.9,
-     "price_usd": 1.0556,
-     "usd": 11378
-    },
-    {
-     "ts": "2026-03-30",
-     "side": "buy",
-     "alpha": 12185.5,
-     "price_usd": 1.0375,
-     "usd": 12642
-    },
-    {
-     "ts": "2026-03-30",
-     "side": "buy",
-     "alpha": 9068.6,
-     "price_usd": 1.0455,
-     "usd": 9482
-    },
-    {
-     "ts": "2026-03-30",
-     "side": "buy",
-     "alpha": 12315.5,
-     "price_usd": 1.0265,
-     "usd": 12642
+     "date": "2025-04-07",
+     "alpha": 1238.894016255,
+     "tao": 20.309978535,
+     "usd": 3724.91,
+     "price_usd": 3.01,
+     "is_transfer": false
     }
    ]
   }
@@ -849,60 +674,87 @@ function toggleTheme(){var t=document.documentElement.getAttribute('data-theme')
 const usdC=n=>{const a=Math.abs(n),s=n<0?'-':'';return a>=1e6?s+'$'+(a/1e6).toFixed(2)+'M':a>=1e3?s+'$'+(a/1e3).toFixed(0)+'k':s+'$'+a.toFixed(0)};
 const usd4=n=>'$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:n<10?4:0});
 const num=(n,d=0)=>Number(n).toLocaleString('en-US',{maximumFractionDigits:d});
+const tau=n=>'τ'+Number(n).toLocaleString('en-US',{maximumFractionDigits:n<1?6:0});
 const shortA=a=>a.slice(0,6)+'…'+a.slice(-4);
+const sign=n=>(n>=0?'+':'');
 
-function monthBars(mo){
-  const W=520,H=190,padL=44,padB=24,padT=12;
-  const max=Math.max(1,...mo.map(m=>Math.max(m.buy_usd,m.sell_usd)));
-  const n=mo.length,gap=(W-padL-8)/Math.max(n,1),bw=gap*0.34,base=H-padB,ih=base-padT;
-  let bars='',lbl='';
-  mo.forEach((m,i)=>{
-    const x=padL+i*gap+gap*0.12;
-    const bh=m.buy_usd/max*ih, sh=m.sell_usd/max*ih;
-    bars+=`<rect x="${x.toFixed(1)}" y="${(base-bh).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,bh).toFixed(1)}" rx="1" fill="var(--accent)"><title>${m.month} bought ${usdC(m.buy_usd)}</title></rect>`;
-    bars+=`<rect x="${(x+bw+1).toFixed(1)}" y="${(base-sh).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,sh).toFixed(1)}" rx="1" fill="var(--red)"><title>${m.month} sold ${usdC(m.sell_usd)}</title></rect>`;
-    if(i%3===0||i===n-1)lbl+=`<text x="${(x+bw).toFixed(1)}" y="${H-7}" text-anchor="middle" font-size="8" fill="var(--text-muted)">${m.month.slice(2)}</text>`;
-  });
-  const g=[max,max/2].map(v=>`<text x="${padL-6}" y="${(base-v/max*ih+3).toFixed(1)}" text-anchor="end" font-size="8" fill="var(--text-muted)">${usdC(v)}</text><line x1="${padL}" y1="${(base-v/max*ih).toFixed(1)}" x2="${W-4}" y2="${(base-v/max*ih).toFixed(1)}" stroke="var(--border)" stroke-width="1"/>`).join('');
-  return `<svg viewBox="0 0 ${W} ${H}">${g}<line x1="${padL}" y1="${base}" x2="${W-4}" y2="${base}" stroke="var(--border-hover)"/>${bars}${lbl}</svg>`;
+function tabLabel(w){
+  return `<span class="r">#${w.rank}</span>${w.label?w.label:'Anon'}`;
 }
-function costBar(w){
-  const W=520,H=90,x0=20,x1=W-20,y=44;
-  const lo=Math.min(w.avg_buy_price_usd,DATA.price_usd)*0.9, hi=Math.max(w.avg_buy_price_usd,DATA.price_usd)*1.1;
-  const X=p=>x0+(p-lo)/(hi-lo)*(x1-x0);
-  const ba=X(w.avg_buy_price_usd), nx=X(DATA.price_usd);
-  const under=DATA.price_usd<w.avg_buy_price_usd;
-  return `<svg viewBox="0 0 ${W} ${H}">
-   <line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="var(--border-hover)" stroke-width="2"/>
-   <line x1="${Math.min(ba,nx).toFixed(1)}" y1="${y}" x2="${Math.max(ba,nx).toFixed(1)}" y2="${y}" stroke="${under?'var(--red)':'var(--accent)'}" stroke-width="4"/>
-   <circle cx="${ba.toFixed(1)}" cy="${y}" r="6" fill="var(--text-sec)"/><text x="${ba.toFixed(1)}" y="${y-12}" text-anchor="middle" font-size="10" fill="var(--text)">avg buy ${usd4(w.avg_buy_price_usd)}</text>
-   <circle cx="${nx.toFixed(1)}" cy="${y}" r="6" fill="${under?'var(--red)':'var(--accent)'}"/><text x="${nx.toFixed(1)}" y="${y+20}" text-anchor="middle" font-size="10" fill="var(--text)">now ${usd4(DATA.price_usd)}</text>
-  </svg>`;
+
+function positionRows(w){
+  return w.positions.map(p=>`<tr class="${p.is_sn25?'sn25':''}">
+    <td>SN${p.netuid}</td>
+    <td>${p.name}${p.is_sn25?' ★':''}</td>
+    <td>${num(p.alpha)} α</td>
+    <td>${usdC(p.value_usd)}</td>
+    <td>${p.pct.toFixed(1)}%<div class="bar ${p.is_sn25?'':'o'}"><span style="width:${Math.min(100,p.pct).toFixed(1)}%"></span></div></td>
+  </tr>`).join('');
+}
+
+function buyRows(w){
+  if(!w.major_buys.length) return `<tr><td colspan="5" class="mut">No SN25 stake additions recorded against this coldkey.</td></tr>`;
+  return w.major_buys.map(b=>`<tr>
+    <td>${b.date}</td>
+    <td>${b.is_transfer?'<span class="badge xfer">TRANSFER IN</span>':'Market buy'}</td>
+    <td>${num(b.alpha)} α</td>
+    <td>${usd4(b.price_usd)}</td>
+    <td>${usdC(b.usd)}</td>
+  </tr>`).join('');
+}
+
+function sn25Panel(s){
+  if(!s.basis_available){
+    return `<div class="panel">
+      <h3>SN25 position</h3><div class="cap">Cost basis not derivable</div>
+      <div class="kv"><span class="k">Alpha held</span><span class="v">${num(s.current_alpha)} α</span></div>
+      <div class="kv"><span class="k">Position value</span><span class="v">${usdC(s.current_value_usd)}</span></div>
+      <div class="kv"><span class="k">Live alpha price</span><span class="v">${usd4(s.current_price_usd)}</span></div>
+      <div class="kv"><span class="k">Up or down</span><span class="v mut">Not reportable</span></div>
+      <div style="margin-top:.8rem" class="note">The SN25 stake ledger for this coldkey accounts for only ${(s.coverage*100).toFixed(0)}% of the alpha it holds${s.n_buys?'':', with no stake additions recorded at all'}. Alpha moved in between hotkeys or subnets is not a delegation event and carries no recorded price, so there is no honest cost basis to mark against. Showing a PnL here would be a guess.</div>
+    </div>`;
+  }
+  const up=s.up;
+  return `<div class="panel">
+    <h3>SN25 position</h3><div class="cap">Unrealised, on alpha still held · weighted-average cost</div>
+    <div class="kv"><span class="k">Alpha held</span><span class="v">${num(s.current_alpha)} α</span></div>
+    <div class="kv"><span class="k">Average cost</span><span class="v">${usd4(s.avg_buy_price_usd)} · ${tau(s.avg_buy_price_tao)}</span></div>
+    <div class="kv"><span class="k">Live price</span><span class="v">${usd4(s.current_price_usd)} · ${tau(s.current_price_tao)}</span></div>
+    <div class="kv"><span class="k">Cost of position</span><span class="v">${usdC(s.cost_usd)} · ${tau(s.cost_tao)}</span></div>
+    <div class="kv"><span class="k">Value now</span><span class="v">${usdC(s.current_value_usd)} · ${tau(s.current_value_tao)}</span></div>
+    <div class="kv"><span class="k">Unrealised PnL (TAO)</span><span class="v ${up?'up':'down'}">${sign(s.pnl_tao)}${tau(s.pnl_tao)} · ${sign(s.pnl_pct)}${s.pnl_pct.toFixed(1)}%</span></div>
+    <div class="kv"><span class="k">Unrealised PnL (USD)</span><span class="v ${s.pnl_usd>=0?'up':'down'}">${sign(s.pnl_usd)}${usdC(s.pnl_usd)}</span></div>
+    <div class="kv"><span class="k">Adds / disposals</span><span class="v">${s.n_buys} / ${s.n_sells}</span></div>
+    <div class="kv"><span class="k">First SN25 activity</span><span class="v">${s.first_trade||'n/a'}</span></div>
+  </div>`;
 }
 
 function walletHTML(w){
-  const pnlUp=w.total_pnl_usd>=0;
-  const links=w.coldkeys.map(c=>`<a href="https://taostats.io/account/${c}" target="_blank" rel="noopener">${shortA(c)} ↗</a>`).join(' · ');
-  const rows=w.recent.map(t=>`<tr><td>${t.ts}</td><td><span class="badge ${t.side}">${t.side.toUpperCase()}</span></td><td>${num(t.alpha,0)} α</td><td>${usd4(t.price_usd)}</td><td>${usdC(t.usd)}</td></tr>`).join('');
+  const s=w.sn25, avail=s.basis_available;
+  const pnlV = avail?`${sign(s.pnl_pct)}${s.pnl_pct.toFixed(1)}%`:'n/a';
+  const pnlS = avail?`${sign(s.pnl_usd)}${usdC(s.pnl_usd)} unrealised`:'no cost basis on-chain';
+  const sn25Pct = w.total_value_usd?(s.current_value_usd/w.total_value_usd*100):0;
   return `
-  <div class="wmeta">${w.note} · ${links} · first SN25 trade ${w.first_trade} · ${w.n_trades} trades (${w.n_buys} buys / ${w.n_sells} sells)</div>
+  <div class="wmeta">
+    ${w.label?`<span class="tag ${w.hl||'gold'}">${w.label}</span>`:''}
+    <a href="https://taostats.io/coldkey/${w.coldkey}" target="_blank" rel="noopener">${shortA(w.coldkey)} ↗</a>
+    <span>· ${w.n_positions} subnet position${w.n_positions===1?'':'s'}</span>
+  </div>
   <div class="kpis">
-    <div class="kpi"><div class="k">Position now</div><div class="v">${usdC(w.current_value_usd)}</div><div class="s">${num(w.current_alpha,0)} α @ ${usd4(DATA.price_usd)}</div></div>
-    <div class="kpi"><div class="k">Total PnL</div><div class="v ${pnlUp?'up':'down'}">${pnlUp?'+':''}${usdC(w.total_pnl_usd)}</div><div class="s ${pnlUp?'up':'down'}">${pnlUp?'+':''}${w.roi_pct.toFixed(0)}% on invested</div></div>
-    <div class="kpi"><div class="k">Avg buy price</div><div class="v">${usd4(w.avg_buy_price_usd)}</div><div class="s">now ${usd4(DATA.price_usd)} · ${(DATA.price_usd/w.avg_buy_price_usd*100-100).toFixed(0)}%</div></div>
-    <div class="kpi"><div class="k">Realized / Unreal.</div><div class="v" style="font-size:1.1rem"><span class="${w.realized_pnl_usd>=0?'up':'down'}">${usdC(w.realized_pnl_usd)}</span> / <span class="${w.unrealized_pnl_usd>=0?'up':'down'}">${usdC(w.unrealized_pnl_usd)}</span></div><div class="s">booked vs on paper</div></div>
+    <div class="kpi"><div class="k">Total portfolio</div><div class="v">${usdC(w.total_value_usd)}</div><div class="s">${num(w.total_value_tao)} TAO staked</div></div>
+    <div class="kpi"><div class="k">SN25 position</div><div class="v">${usdC(s.current_value_usd)}</div><div class="s">${num(s.current_alpha)} α · ${sn25Pct.toFixed(0)}% of portfolio</div></div>
+    <div class="kpi"><div class="k">SN25 unrealised</div><div class="v ${avail?(s.up?'up':'down'):'mut'}">${pnlV}</div><div class="s">${pnlS}</div></div>
+    <div class="kpi"><div class="k">Average cost</div><div class="v">${avail?usd4(s.avg_buy_price_usd):'n/a'}</div><div class="s">live ${usd4(s.current_price_usd)}</div></div>
   </div>
   <div class="grid2">
-    <div class="panel"><h3>Bought vs sold, by month</h3><div class="cap"><span class="up">green = bought</span> · <span class="down">red = sold</span> (USD)</div>${monthBars(w.monthly)}</div>
-    <div class="panel"><h3>Cost basis vs market</h3><div class="cap">avg entry price vs current SN25 price</div>${costBar(w)}
-      <div class="kv"><span class="k">Invested (cost)</span><span class="v">${usdC(w.invested_usd)}</span></div>
-      <div class="kv"><span class="k">Proceeds from sells</span><span class="v">${usdC(w.proceeds_usd)}</span></div>
-      <div class="kv"><span class="k">Current holdings value</span><span class="v">${usdC(w.current_value_usd)}</span></div>
-      <div class="kv"><span class="k">Total PnL</span><span class="v ${pnlUp?'up':'down'}">${pnlUp?'+':''}${usdC(w.total_pnl_usd)}</span></div>
+    <div class="panel">
+      <h3>Top positions</h3><div class="cap">Largest ${w.positions.length} of ${w.n_positions} by value · all subnets</div>
+      <div class="tbl-wrap" style="border:none"><table style="min-width:0"><thead><tr><th>Subnet</th><th>Name</th><th>Alpha</th><th>Value</th><th>Share</th></tr></thead><tbody>${positionRows(w)}</tbody></table></div>
     </div>
+    ${sn25Panel(s)}
   </div>
-  <h3 class="sec">Trade ledger — most recent ${w.recent.length} of ${w.n_trades}</h3>
-  <div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Side</th><th>Alpha</th><th>Price</th><th>Value</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  <h3 class="sec">Major SN25 buys: largest ${w.major_buys.length} addition${w.major_buys.length===1?'':'s'}</h3>
+  <div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Alpha</th><th>Price</th><th>Value then</th></tr></thead><tbody>${buyRows(w)}</tbody></table></div>`;
 }
 
 function render(d,live){
@@ -910,12 +762,12 @@ function render(d,live){
   const dot=document.getElementById('dot'),st=document.getElementById('statusTxt');
   const t=new Date(d.generated_at).toISOString().replace('T',' ').replace(/:\d\dZ/,'Z');
   dot.className='dot'+(live?'':' snap'); st.textContent=(live?'LIVE · ':'SNAPSHOT · ')+t;
-  document.getElementById('tabs').innerHTML=d.wallets.map((w,i)=>`<button class="tab ${i===SEL?'active':''}" onclick="pick(${i})">${w.name}</button>`).join('');
+  document.getElementById('tabs').innerHTML=d.wallets.map((w,i)=>`<button class="tab ${i===SEL?'active':''}" onclick="pick(${i})">${tabLabel(w)}</button>`).join('');
   document.getElementById('wallet').innerHTML=walletHTML(d.wallets[SEL]);
 }
-function pick(i){SEL=i;render(DATA,true);}
+function pick(i){SEL=i;render(DATA,DATA!==FALLBACK);}
 function manualRefresh(){var s=document.getElementById('statusTxt');if(s)s.textContent='refreshing…';loadData();}
-function loadData(){try{if(typeof fetch!=='function'){render(FALLBACK,false);return;}fetch('./trades_data.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>render(d,true)).catch(()=>render(FALLBACK,false));}catch(e){render(FALLBACK,false);}}
+function loadData(){try{if(typeof fetch!=='function'){render(FALLBACK,false);return;}fetch('./portfolios.json?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>render(d,true)).catch(()=>render(FALLBACK,false));}catch(e){render(FALLBACK,false);}}
 loadData();
 </script>
 </body>
